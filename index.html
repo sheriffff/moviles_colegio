@@ -248,9 +248,19 @@
     25% { transform: translateX(-8px); }
     75% { transform: translateX(8px); }
   }
-  .lock-hint {
-    font-size: 14px;
-    color: #888888;
+  .lock-btn {
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    padding: 10px 36px;
+    border: none;
+    border-radius: 10px;
+    background: #2a9d8f;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .lock-btn:hover {
+    opacity: 0.85;
   }
 </style>
 </head>
@@ -260,7 +270,7 @@
   <h2>Acceso restringido</h2>
   <input type="password" id="lock-input" placeholder="Contraseña" autofocus
     onkeydown="if(event.key==='Enter')checkPw()">
-  <span class="lock-hint">Pulsa Enter</span>
+  <button class="lock-btn" onclick="checkPw()">Entrar</button>
 </div>
 <script>
   function checkPw() {
