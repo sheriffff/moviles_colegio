@@ -208,6 +208,52 @@
     line-height: 1.4;
   }
 
+  .coming-soon {
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 2px solid #f0f0f0;
+  }
+  .coming-soon-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 4px;
+  }
+  .coming-soon-subtitle {
+    font-size: 16px;
+    color: #888888;
+    margin-bottom: 36px;
+  }
+  .coming-section {
+    margin-bottom: 28px;
+  }
+  .coming-section-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 8px;
+  }
+  .coming-section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .coming-section li {
+    font-size: 15px;
+    color: #4a4a4a;
+    padding: 4px 0 4px 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .coming-section li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: #888888;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
   #lock-screen {
     position: fixed;
     inset: 0;
@@ -393,6 +439,15 @@
       </section>
       <section class="chart-section">
         <div class="chart-main">
+          <div class="chart-title">¿A qué ritmo accede cada generación al móvil?</div>
+          <div class="chart-subtitle">Porcentaje del alumnado que ya tenía móvil en 6° de Primaria, según su año de nacimiento</div>
+          <div class="school-block" data-school="todos"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#2a9d8f;line-height:1;">20.2%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#2a9d8f;line-height:1;">33.5%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
+<div class="school-block" data-school="Andel" style="display:none"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#060786;line-height:1;">28.3%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#060786;line-height:1;">24.0%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
+<div class="school-block" data-school="Fuenllana" style="display:none"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#c60027;line-height:1;">13.2%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De las nacidas en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#c60027;line-height:1;">41.1%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De las nacidas en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
           <div class="chart-title">¿Coinciden alumnado y familias en cuándo se dio el móvil?</div>
           <div class="chart-subtitle">Color sólido = lo que dice el alumnado · Color claro = lo que dicen las familias</div>
           
@@ -404,6 +459,124 @@
           <div class="insight-label">más chicas que chicos dicen haber recibido el móvil en 1°-2° ESO</div>
         </div>
       </section>
+
+  <div class="coming-soon">
+    <div class="coming-soon-title">Coming soon...</div>
+    <div class="coming-soon-subtitle">Secciones en preparación</div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S2. Tiempo de uso y actividad digital</div>
+      <ul>
+        <li>Tiempo de pantalla entre semana vs fin de semana, por curso</li>
+        <li>Ranking de apps y plataformas más usadas</li>
+        <li>Primera y última cosa del día: ¿es el móvil?</li>
+        <li>¿Qué hacen principalmente con las pantallas?</li>
+        <li>¿Los heavy users lo son siempre? (entre semana vs finde)</li>
+        <li>Cruce familia-alumnado: apps que usan vs apps que las familias creen</li>
+        <li>Cruce familia-alumnado: tiempo estimado por familias vs declarado por el alumnado</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S3. Autocontrol y dependencia digital</div>
+      <ul>
+        <li>Índice compuesto de dependencia (6 indicadores)</li>
+        <li>Desglose por indicador: enfado, mentir, ansiedad, no poder parar...</li>
+        <li>¿Acceso temprano = mayor dependencia?</li>
+        <li>Dependencia según tipo de dispositivo y nivel de normas en casa</li>
+        <li>Impacto en el sueño por curso</li>
+        <li>Cruce familia-alumnado: normas que las familias dicen tener vs las que el alumnado percibe</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S4. Bienestar emocional y presión social digital</div>
+      <ul>
+        <li>FOMO: "me siento mal si hacen planes y lo veo en redes"</li>
+        <li>Comparación social: "me comparo con la vida perfecta"</li>
+        <li>Agobio por el "visto" y no responder rápido</li>
+        <li>Preocupación por likes</li>
+        <li>¿La presión social alimenta la dependencia?</li>
+        <li>Cruce familia-alumnado: percepción de bienestar emocional de las familias vs indicadores reales</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S5. Chicos vs chicas</div>
+      <ul>
+        <li>Comparativa de tiempo de uso, apps preferidas y FOMO por sexo</li>
+        <li>Comparación social, likes y dependencia por sexo</li>
+        <li>"Si pudieras reducir tu tiempo a la mitad": diferencias</li>
+        <li>Impacto percibido (lectura, rendimiento, amistades) por sexo</li>
+        <li>Integración social sin móvil por sexo</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S6. Impacto percibido en la vida</div>
+      <ul>
+        <li>Impacto según el alumnado: comunicación familiar, lectura, rendimiento, amistades</li>
+        <li>Impacto según las familias: 10 ámbitos distintos</li>
+        <li>Cruce familia-alumnado: ¿quién es más optimista/pesimista?</li>
+        <li>¿Los que recibieron antes perciben más deterioro?</li>
+        <li>Bienestar, creatividad y aficiones previas: ¿han disminuido?</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S7. Riesgos y amenazas digitales</div>
+      <ul>
+        <li>Experiencias negativas: insultos, pornografía, desconocidos, acoso</li>
+        <li>¿Las experiencias negativas aumentan con la edad?</li>
+        <li>¿Acceso temprano = más riesgo?</li>
+        <li>Cruce familia-alumnado: preocupación de las familias vs experiencias reales</li>
+        <li>Profesorado: ¿los alumnos ocultan cosas a sus padres?</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S8. Los que (aún) no tienen móvil</div>
+      <ul>
+        <li>¿Para qué les gustaría usarlo?</li>
+        <li>¿Cómo se sienten al no tenerlo?</li>
+        <li>Percepción de amigos con móvil: ¿enganchados o les va bien?</li>
+        <li>Integración social: ¿se sienten parte del grupo?</li>
+        <li>¿Cuándo les gustaría tener móvil?</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S9. Mirando al futuro: arrepentimiento y cambio</div>
+      <ul>
+        <li>Alumnado: "si me lo hubieran dado más tarde"</li>
+        <li>Familias: "si decidiéramos hoy"</li>
+        <li>Alumnado como futuros padres: ¿cuándo darían smartphone?</li>
+        <li>"Si pudieras reducir tu tiempo a la mitad"</li>
+        <li>Triple perspectiva: edad ideal según alumnado vs familias vs profesorado</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S10. Presión social y coordinación entre familias</div>
+      <ul>
+        <li>Presión social para dar el móvil</li>
+        <li>Coordinación con otras familias: ¿se habla del tema?</li>
+        <li>"Imagina que nadie tiene smartphone": respuestas del alumnado</li>
+        <li>Cruce familia-alumnado: "para qué se lo dimos" vs "para qué lo usan"</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S11. Perspectiva del profesorado</div>
+      <ul>
+        <li>Descenso de rendimiento, cansancio por uso nocturno</li>
+        <li>Retirada de móviles y uso en horario escolar</li>
+        <li>Comportamiento influido por RRSS y aislamiento por adicción</li>
+        <li>¿Positivo un acuerdo para retrasar el acceso?</li>
+        <li>Comparación Fuenllana vs Andel en métricas clave</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -502,6 +675,14 @@
     });
     document.querySelectorAll('.chart-insight').forEach(function(el) {
       el.classList.toggle('visible', mode === 'ambos');
+    });
+    document.querySelectorAll('.school-block').forEach(function(el) {
+      var s = el.dataset.school;
+      var show = (mode === 'todos' && s === 'todos') ||
+                 (mode === 'Andel' && s === 'Andel') ||
+                 (mode === 'Fuenllana' && s === 'Fuenllana') ||
+                 (mode === 'ambos' && (s === 'Andel' || s === 'Fuenllana'));
+      el.style.display = show ? '' : 'none';
     });
     allCharts.forEach(function(chart, idx) {
       var opt = chart.getOption();
