@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <style>
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
@@ -191,6 +192,7 @@
   .section-content {
     display: none;
     padding-top: 40px;
+        transition: opacity 0.25s ease;
   }
   .section-content.expanded {
     display: block;
@@ -199,10 +201,6 @@
   .chart-section {
     position: relative;
     margin-bottom: 56px;
-    transition: opacity 0.25s ease;
-  }
-  .chart-section.fading {
-    opacity: 0.08;
   }
   .chart-main {
   }
@@ -373,6 +371,7 @@
   .lock-btn:hover {
     opacity: 0.85;
   }
+
 </style>
 </head>
 <body>
@@ -486,9 +485,6 @@
           <div class="chart-container" id="tipo_dispositivo" style="height:360px"></div>
           
         </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #c60027">4%</div><div class="insight-label">más chicas con smartphone sin rrss</div></div>
-        </div>
       </section>
       <section class="chart-section">
         <div class="chart-main">
@@ -498,9 +494,6 @@
           
           <div class="chart-container" id="decision_movil" style="height:340px"></div>
           
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #060786">5%</div><div class="insight-label">más familias Andel dicen «meditada y consensuada»</div></div>
         </div>
       </section>
       <section class="chart-section">
@@ -512,12 +505,10 @@
           <div class="chart-container" id="alternativas" style="height:300px"></div>
           
         </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #c60027">3%</div><div class="insight-label">más familias Fuenllana dicen «ni nos lo planteamos»</div></div>
-        </div>
       </section>
       <section class="chart-section">
         <div class="chart-main">
+          <div class='chart-code'>P1.6</div>
           <div class="chart-title">¿A qué ritmo accede cada generación al móvil?</div>
           <div class="chart-subtitle">Porcentaje del alumnado que ya tenía móvil en 6° de Primaria, según su año de nacimiento</div>
           <div class="school-block" data-school="todos"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#2a9d8f;line-height:1;">20.2%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#2a9d8f;line-height:1;">33.5%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
@@ -527,15 +518,12 @@
       </section>
       <section class="chart-section">
         <div class="chart-main">
-          <div class='chart-code'>P1.6</div>
+          <div class='chart-code'>P1.7</div>
           <div class="chart-title">¿Coinciden alumnado y familias en cuándo se dio el móvil?</div>
           <div class="chart-subtitle">Color sólido = lo que dice el alumnado · Color claro = lo que dicen las familias</div>
           
           <div class="chart-container" id="cruce_edad_movil" style="height:500px"></div>
           
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #c60027">6%</div><div class="insight-label">más chicas que chicos dicen haber recibido el móvil en 1°-2° ESO</div></div>
         </div>
       </section>
       </div>
@@ -555,9 +543,6 @@
           
           <div class="chart-container" id="tiempo_pantalla" style="height:420px"></div>
           
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #e76f51">+110.1%</div><div class="insight-label">más alumnado supera las 4 h el fin de semana que entre semana (sumando todos los cursos)</div></div>
         </div>
       </section>
       <section class="chart-section">
@@ -582,9 +567,6 @@
           <div class="chart-container" id="primera_cosa" style="height:500px"></div>
           
         </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #e76f51">46.2%</div><div class="insight-label">del alumnado de Bachillerato dice que el móvil es lo primero al despertar y lo último antes de dormir</div></div>
-        </div>
       </section>
       <section class="chart-section">
         <div class="chart-main">
@@ -594,48 +576,6 @@
           
           <div class="chart-container" id="actividades" style="height:500px"></div>
           
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #2a9d8f">67.5%</div><div class="insight-label">del alumnado usa el móvil para chatear</div></div>
-        </div>
-      </section>
-      <section class="chart-section">
-        <div class="chart-main">
-          <div class='chart-code'>P2.5</div>
-          <div class="chart-title">Quien más usa entre semana, más usa el fin de semana</div>
-          <div class="chart-subtitle">Cada burbuja muestra qué porcentaje del alumnado combina un nivel de uso entre semana con otro el fin de semana</div>
-          
-          <div class="chart-container" id="scatter_tiempo" style="height:500px"></div>
-          
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #e76f51">78%</div><div class="insight-label">usa más el fin de semana que entre semana</div></div>
-        </div>
-      </section>
-      <section class="chart-section">
-        <div class="chart-main">
-          <div class='chart-code'>P2.6</div>
-          <div class="chart-title">Las familias subestiman el uso de apps de sus hijos</div>
-          <div class="chart-subtitle">Porcentaje que usa cada app: lo que dice el alumnado vs lo que creen las familias. Color fuerte = alumnado, color claro = familias</div>
-          
-          <div class="chart-container" id="cruce_apps" style="height:360px"></div>
-          
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #e76f51">27pp</div><div class="insight-label">de diferencia en Videojuegos: las familias no lo saben</div></div>
-        </div>
-      </section>
-      <section class="chart-section">
-        <div class="chart-main">
-          <div class='chart-code'>P2.7</div>
-          <div class="chart-title">Las familias subestiman el tiempo en pantallas</div>
-          <div class="chart-subtitle">Distribución del tiempo diario entre semana: lo que declara el alumnado vs lo que estiman las familias</div>
-          
-          <div class="chart-container" id="cruce_tiempo" style="height:360px"></div>
-          <div class='chart-footnote'>Las escalas del alumnado y familias se han agrupado para hacerlas comparables. 'No lo sé' de familias se excluye.</div>
-        </div>
-        <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #e76f51">40%</div><div class="insight-label">del alumnado dice usar más de 2h, pero solo el 9% de las familias lo cree</div></div>
         </div>
       </section>
       </div>
@@ -753,7 +693,7 @@
     (function() {
       var el = document.getElementById('pct_movil_curso');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "cross", "crossStyle": {"color": "#ccc"}, "lineStyle": {"color": "#ddd"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["4°° Pri", "5°° Pri", "6°° Pri", "1°° ESO", "2°° ESO", "3º° ESO", "4°° ESO", "1°° Bach", "2º° Bach"], "boundaryGap": false, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "min": 0, "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "line", "data": [28.3, 23.2, 29.3, 44.7, 64.1, 80.0, 94.6, 96.5, 93.9], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(119,119,119,0.18)"}, {"offset": 1, "color": "rgba(119,119,119,0.02)"}]}}, "itemStyle": {"color": "#2a9d8f", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "line", "data": [36.7, 25.8, 28.0, 46.7, 66.7, 70.7, 93.8, 96.6, 87.0], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#060786"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(6,7,134,0.18)"}, {"offset": 1, "color": "rgba(6,7,134,0.02)"}]}}, "itemStyle": {"color": "#060786", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "line", "data": [21.8, 20.8, 30.9, 42.1, 62.1, 87.4, 95.2, 96.4, 100.0], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#c60027"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(198,0,39,0.18)"}, {"offset": 1, "color": "rgba(198,0,39,0.02)"}]}}, "itemStyle": {"color": "#c60027", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "bottom", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "cross", "crossStyle": {"color": "#ccc"}, "lineStyle": {"color": "#ddd"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["4°° Pri", "5°° Pri", "6°° Pri", "1°° ESO", "2°° ESO", "3º° ESO", "4°° ESO", "1°° Bach", "2º° Bach"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "boundaryGap": false}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}, "min": 0, "max": 100}, "series": [{"name": "Todos", "type": "line", "data": [28.3, 23.2, 29.3, 44.7, 64.1, 80.0, 94.6, 96.5, 93.9], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(42,157,143,0.18)"}, {"offset": 1, "color": "rgba(42,157,143,0.02)"}]}}}, {"name": "Andel", "type": "line", "data": [36.7, 25.8, 28.0, 46.7, 66.7, 70.7, 93.8, 96.6, 87.0], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#060786"}, "itemStyle": {"color": "#060786", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(6,7,134,0.18)"}, {"offset": 1, "color": "rgba(6,7,134,0.02)"}]}}}, {"name": "Fuenllana", "type": "line", "data": [21.8, 20.8, 30.9, 42.1, 62.1, 87.4, 95.2, 96.4, 100.0], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#c60027"}, "itemStyle": {"color": "#c60027", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "bottom", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(198,0,39,0.18)"}, {"offset": 1, "color": "rgba(198,0,39,0.02)"}]}}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -764,7 +704,7 @@
     (function() {
       var el = document.getElementById('edad_movil');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [16.2, 26.6, 41.4, 13.0, 2.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [17.5, 24.5, 38.0, 15.2, 4.8], "itemStyle": {"color": "#060786", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [15.1, 28.4, 44.4, 11.1, 1.0], "itemStyle": {"color": "#c60027", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}, "min": 0, "max": 50}, "series": [{"name": "Todos", "type": "bar", "data": [16.2, 26.6, 41.4, 13.0, 2.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [17.5, 24.5, 38.0, 15.2, 4.8], "itemStyle": {"color": "#060786", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [15.1, 28.4, 44.4, 11.1, 1.0], "itemStyle": {"color": "#c60027", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -775,7 +715,7 @@
     (function() {
       var el = document.getElementById('tipo_dispositivo');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Smartphone sin control", "Smartphone con control parental", "Smartphone sin RRSS", "Móvil básico"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 60, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [47.3, 37.6, 11.4, 3.7], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [49.3, 37.7, 9.1, 4.0], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [45.5, 37.6, 13.4, 3.5], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Smartphone sin control", "Smartphone con control parental", "Smartphone sin RRSS", "Móvil básico"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}, "max": 60}, "series": [{"name": "Todos", "type": "bar", "data": [47.3, 37.6, 11.4, 3.7], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [49.3, 37.7, 9.1, 4.0], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [45.5, 37.6, 13.4, 3.5], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -786,7 +726,7 @@
     (function() {
       var el = document.getElementById('decision_movil');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Meditada y consensuada", "Reactiva", "Poco pensada", "Fue un regalo"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [59.7, 32.9, 2.7, 4.7], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [62.2, 32.2, 1.4, 4.2], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [57.4, 33.5, 3.9, 5.2], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Meditada y consensuada", "Reactiva", "Poco pensada", "Fue un regalo"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [59.7, 32.9, 2.7, 4.7], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [62.2, 32.2, 1.4, 4.2], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [57.4, 33.5, 3.9, 5.2], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -797,7 +737,7 @@
     (function() {
       var el = document.getElementById('alternativas');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Sí, las valoramos", "Las conocíamos, no las consideramos", "Ni nos lo planteamos"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a", "width": 260, "overflow": "truncate"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [53.2, 28.8, 18.1], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [54.2, 29.2, 16.7], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [52.3, 28.4, 19.4], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Sí, las valoramos", "Las conocíamos, no las consideramos", "Ni nos lo planteamos"], "inverse": true, "axisLabel": {"width": 260, "overflow": "truncate"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [53.2, 28.8, 18.1], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [54.2, 29.2, 16.7], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [52.3, 28.4, 19.4], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -808,17 +748,17 @@
     (function() {
       var el = document.getElementById('cruce_edad_movil');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "formatter": function(params) {
-      var tip = '<b>' + params[0].axisValueLabel + '</b>';
-      for (var i = 0; i < params.length; i++) {
-        var p = params[i];
-        var label = p.seriesName.indexOf('_fam') > -1 ? 'Familias' : 'Alumnado';
-        var school = p.seriesName.replace('_fam', '');
-        if (school !== 'Todos') label = school + ' — ' + label;
-        tip += '<br/>' + p.marker + ' ' + label + ': <b>' + p.value + '%</b>';
-      }
-      return tip;
-    }}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [16.2, 26.6, 41.4, 13.0, 2.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Todos_fam", "type": "bar", "data": [5.4, 12.7, 49.5, 26.4, 6.0], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [17.5, 24.5, 38.0, 15.2, 4.8], "itemStyle": {"color": "#060786", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel_fam", "type": "bar", "data": [4.2, 12.5, 43.8, 31.2, 8.3], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [15.1, 28.4, 44.4, 11.1, 1.0], "itemStyle": {"color": "#c60027", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana_fam", "type": "bar", "data": [6.5, 12.9, 54.8, 21.9, 3.9], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "formatter": function(params) {
+          var tip = '<b>' + params[0].axisValueLabel + '</b>';
+          for (var i = 0; i < params.length; i++) {
+            var p = params[i];
+            var label = p.seriesName.indexOf('_fam') > -1 ? 'Familias' : 'Alumnado';
+            var school = p.seriesName.replace('_fam', '');
+            if (school !== 'Todos') label = school + ' — ' + label;
+            tip += '<br/>' + p.marker + ' ' + label + ': <b>' + p.value + '%</b>';
+          }
+          return tip;
+        }}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [16.2, 26.6, 41.4, 13.0, 2.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Todos_fam", "type": "bar", "data": [5.4, 12.7, 49.5, 26.4, 6.0], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [17.5, 24.5, 38.0, 15.2, 4.8], "itemStyle": {"color": "#060786", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel_fam", "type": "bar", "data": [4.2, 12.5, 43.8, 31.2, 8.3], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [15.1, 28.4, 44.4, 11.1, 1.0], "itemStyle": {"color": "#c60027", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana_fam", "type": "bar", "data": [6.5, 12.9, 54.8, 21.9, 3.9], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -854,7 +794,7 @@
     (function() {
       var el = document.getElementById('apps_ranking');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Omegle / Azar", "Chat con desconocidos", "Otras apps / RRSS", "Videojuegos (sin chat)", "TikTok", "Instagram", "YouTube", "WhatsApp"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [6.1, 6.3, 16.3, 28.7, 54.9, 57.2, 65.7, 85.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [8.7, 11.3, 19.4, 46.2, 47.6, 53.8, 74.4, 81.4], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [3.7, 2.0, 13.6, 13.3, 61.2, 60.2, 58.0, 89.6], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Omegle / Azar", "Chat con desconocidos", "Otras apps / RRSS", "Videojuegos (sin chat)", "TikTok", "Instagram", "YouTube", "WhatsApp"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [6.1, 6.3, 16.3, 28.7, 54.9, 57.2, 65.7, 85.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [8.7, 11.3, 19.4, 46.2, 47.6, 53.8, 74.4, 81.4], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [3.7, 2.0, 13.6, 13.3, 61.2, 60.2, 58.0, 89.6], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -865,7 +805,7 @@
     (function() {
       var el = document.getElementById('primera_cosa');
       var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 40, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "boundaryGap": false}, "yAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "line", "data": [18.8, 5.2, 8.7, 30.4, 46.2], "smooth": 0.3, "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#2a9d8f2e"}, {"offset": 1, "color": "#2a9d8f05"}]}}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "line", "data": [27.6, 6.1, 10.2, 27.9, 39.4], "smooth": 0.3, "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#060786"}, "itemStyle": {"color": "#060786", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#0607862e"}, {"offset": 1, "color": "#06078605"}]}}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "line", "data": [12.0, 4.3, 7.3, 32.4, 52.8], "smooth": 0.3, "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#c60027"}, "itemStyle": {"color": "#c60027", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#c600272e"}, {"offset": 1, "color": "#c6002705"}]}}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 40, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "boundaryGap": false}, "yAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "line", "data": [18.8, 5.2, 8.7, 30.4, 46.2], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#2a9d8f33"}, {"offset": 1, "color": "#2a9d8f05"}]}}}, {"name": "Andel", "type": "line", "data": [27.6, 6.1, 10.2, 27.9, 39.4], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#060786"}, "itemStyle": {"color": "#060786", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#06078633"}, {"offset": 1, "color": "#06078605"}]}}}, {"name": "Fuenllana", "type": "line", "data": [12.0, 4.3, 7.3, 32.4, 52.8], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#c60027"}, "itemStyle": {"color": "#c60027", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#c6002733"}, {"offset": 1, "color": "#c6002705"}]}}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
@@ -884,68 +824,24 @@
       window.addEventListener('resize', function() { chart.resize(); });
       chart._howCompare = 'sideBySide';
       chart._compareFn = function(mode) {
-            var rHide = {splitArea:{show:false}, splitLine:{show:false}, axisLine:{show:false}, axisName:{show:false}};
-            var rShow = function(c, r) {
-              return {center:c, radius:r, splitArea:{show:true, areaStyle:{color:['rgba(0,0,0,0.02)','rgba(0,0,0,0.00)']}}, splitLine:{show:true, lineStyle:{color:'#e8e8e8'}}, axisLine:{show:true, lineStyle:{color:'#e0e0e0'}}, axisName:{show:true}};
+                var rHide = {splitArea:{show:false}, splitLine:{show:false}, axisLine:{show:false}, axisName:{show:false}};
+                var rShow = function(c, r) {
+                  return {center:c, radius:r, splitArea:{show:true, areaStyle:{color:['rgba(0,0,0,0.02)','rgba(0,0,0,0.00)']}}, splitLine:{show:true, lineStyle:{color:'#e8e8e8'}}, axisLine:{show:true, lineStyle:{color:'#e0e0e0'}}, axisName:{show:true}};
+                };
+                var r0, r1, r2, t0 = {show:false}, t1 = {show:false};
+                if (mode === 'todos') {
+                  r0 = rShow(['50%','52%'], '68%'); r1 = rHide; r2 = rHide;
+                } else if (mode === 'Andel') {
+                  r0 = rHide; r1 = rShow(['50%','52%'], '68%'); r2 = rHide;
+                } else if (mode === 'Fuenllana') {
+                  r0 = rHide; r1 = rHide; r2 = rShow(['50%','52%'], '68%');
+                } else {
+                  r0 = rHide; r1 = rShow(['27%','55%'], '55%'); r2 = rShow(['73%','55%'], '55%');
+                  t0 = {show:true}; t1 = {show:true};
+                }
+                chart.setOption({radar: [r0, r1, r2], title: [t0, t1]});
             };
-            var r0, r1, r2, t0 = {show:false}, t1 = {show:false};
-            if (mode === 'todos') {
-              r0 = rShow(['50%','52%'], '68%'); r1 = rHide; r2 = rHide;
-            } else if (mode === 'Andel') {
-              r0 = rHide; r1 = rShow(['50%','52%'], '68%'); r2 = rHide;
-            } else if (mode === 'Fuenllana') {
-              r0 = rHide; r1 = rHide; r2 = rShow(['50%','52%'], '68%');
-            } else {
-              r0 = rHide; r1 = rShow(['27%','55%'], '55%'); r2 = rShow(['73%','55%'], '55%');
-              t0 = {show:true}; t1 = {show:true};
-            }
-            chart.setOption({radar: [r0, r1, r2], title: [t0, t1]});
-        };
     })();
-    (function() {
-      var el = document.getElementById('scatter_tiempo');
-      var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "item", "formatter": function(p) { var labels = ['< 1 h','1-2 h','2-4 h','4-6 h','> 6 h']; return '<b>' + labels[p.data[0]] + '</b> entre semana → <b>' + labels[p.data[1]] + '</b> finde<br>' + p.data[2] + '% del alumnado (' + p.data[3] + ')'; }, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos": true, "Andel": false, "Fuenllana": false}}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 10, "containLabel": true}, "xAxis": {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "name": "Entre semana", "nameLocation": "middle", "nameGap": 35, "nameTextStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "color": "#4a4a4a", "fontWeight": 600}, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitLine": {"show": true, "lineStyle": {"color": "#f0f0f0", "type": "dashed"}}}, "yAxis": {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "name": "Fin de semana", "nameLocation": "middle", "nameGap": 55, "nameTextStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "color": "#4a4a4a", "fontWeight": 600}, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitLine": {"show": true, "lineStyle": {"color": "#f0f0f0", "type": "dashed"}}}, "series": [{"name": "Todos", "type": "scatter", "data": [[2, 4, 5.1, 36, 10.318471337579618], [1, 2, 22.1, 157, 45.0], [1, 1, 3.7, 26, 7.452229299363057], [2, 3, 14.5, 103, 29.522292993630572], [3, 3, 1.8, 13, 6], [0, 2, 7.3, 52, 14.904458598726114], [0, 0, 3.2, 23, 6.592356687898089], [1, 3, 9.7, 69, 19.777070063694268], [3, 4, 4.6, 33, 9.45859872611465], [2, 2, 7.2, 51, 14.617834394904458], [0, 1, 11.2, 80, 22.929936305732483], [1, 4, 2.1, 15, 6], [3, 1, 0.1, 1, 6], [4, 4, 5.2, 37, 10.605095541401274], [0, 4, 0.7, 5, 6], [0, 3, 1.1, 8, 6], [1, 0, 0.1, 1, 6], [3, 2, 0.1, 1, 6], [2, 1, 0.1, 1, 6]], "symbolSize": function(val) { return val[4]; }, "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderColor": "#2a9d8f", "borderWidth": 2, "opacity": 0.8}, "label": {"show": true, "formatter": function(p) { return p.data[2] >= 5 ? p.data[2] + '%' : ''; }, "fontSize": 11, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333"}}, {"name": "Andel", "type": "scatter", "data": [[2, 4, 7.5, 25, 7.165605095541401], [1, 2, 19.9, 66, 18.9171974522293], [1, 1, 3.3, 11, 6], [2, 3, 12.0, 40, 11.464968152866241], [3, 3, 1.2, 4, 6], [0, 2, 8.1, 27, 7.738853503184713], [0, 0, 3.0, 10, 6], [1, 3, 9.9, 33, 9.45859872611465], [3, 4, 6.0, 20, 6], [2, 2, 5.7, 19, 6], [0, 1, 7.8, 26, 7.452229299363057], [1, 4, 3.9, 13, 6], [3, 1, 0.3, 1, 6], [4, 4, 8.1, 27, 7.738853503184713], [0, 4, 0.6, 2, 6], [0, 3, 1.8, 6, 6], [1, 0, 0.3, 1, 6], [3, 2, 0.3, 1, 6]], "symbolSize": function(val) { return val[4]; }, "itemStyle": {"color": "rgba(6, 7, 134, 0.12)", "borderColor": "#060786", "borderWidth": 2, "opacity": 0.8}, "label": {"show": true, "formatter": function(p) { return p.data[2] >= 5 ? p.data[2] + '%' : ''; }, "fontSize": 11, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333"}}, {"name": "Fuenllana", "type": "scatter", "data": [[2, 2, 8.4, 32, 9.171974522292993], [1, 2, 23.9, 91, 26.0828025477707], [0, 2, 6.6, 25, 7.165605095541401], [3, 3, 2.4, 9, 6], [0, 1, 14.2, 54, 15.477707006369426], [2, 3, 16.6, 63, 18.05732484076433], [3, 4, 3.4, 13, 6], [1, 1, 3.9, 15, 6], [1, 3, 9.5, 36, 10.318471337579618], [2, 4, 2.9, 11, 6], [4, 4, 2.6, 10, 6], [0, 0, 3.4, 13, 6], [0, 4, 0.8, 3, 6], [1, 4, 0.5, 2, 6], [0, 3, 0.5, 2, 6], [2, 1, 0.3, 1, 6]], "symbolSize": function(val) { return val[4]; }, "itemStyle": {"color": "rgba(198, 0, 39, 0.12)", "borderColor": "#c60027", "borderWidth": 2, "opacity": 0.8}, "label": {"show": true, "formatter": function(p) { return p.data[2] >= 5 ? p.data[2] + '%' : ''; }, "fontSize": 11, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
-      allOriginals.push(JSON.parse(JSON.stringify(opt)));
-      chart.setOption(opt);
-      allCharts.push(chart);
-      chart._el = el;
-      window.addEventListener('resize', function() { chart.resize(); });
-      chart._howCompare = 'overlay';
-    })();
-    (function() {
-      var el = document.getElementById('cruce_apps');
-      var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "item", "formatter": function(p) { if (p.seriesType === 'custom') return ''; return '<b>' + p.seriesName.split('_')[0] + '</b><br>' + (p.seriesName.includes('_alu') ? 'Alumnado: ' : 'Familias: ') + p.data[0] + '%'; }, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos_line": true, "Todos_fam": true, "Todos_alu": true, "Andel_line": false, "Andel_fam": false, "Andel_alu": false, "Fuenllana_line": false, "Fuenllana_fam": false, "Fuenllana_alu": false}}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "category", "data": ["WhatsApp", "Instagram", "TikTok", "YouTube", "Videojuegos"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos_line", "type": "custom", "renderItem": function(params, api) {  var d = params.value || api.value();  var start = api.coord([d[0], d[2]]);  var end = api.coord([d[1], d[2]]);  return {    type: 'line',    shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1] },    style: { stroke: '#2a9d8f', lineWidth: 2, opacity: 0.4 }  };}, "data": [[85.8, 91.3, 0], [57.2, 61.4, 1], [54.9, 52.3, 2], [65.7, 81.9, 3], [28.7, 56.0, 4]], "z": 1}, {"name": "Todos_fam", "type": "scatter", "data": [[91.3, 0], [61.4, 1], [52.3, 2], [81.9, 3], [56.0, 4]], "symbolSize": 14, "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "left", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Todos_alu", "type": "scatter", "data": [[85.8, 0], [57.2, 1], [54.9, 2], [65.7, 3], [28.7, 4]], "symbolSize": 14, "itemStyle": {"color": "#2a9d8f", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Andel_line", "type": "custom", "renderItem": function(params, api) {  var d = params.value || api.value();  var start = api.coord([d[0], d[2]]);  var end = api.coord([d[1], d[2]]);  return {    type: 'line',    shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1] },    style: { stroke: '#060786', lineWidth: 2, opacity: 0.4 }  };}, "data": [[81.4, 88.9, 0], [53.8, 59.0, 1], [47.6, 45.8, 2], [74.4, 80.6, 3], [46.2, 82.6, 4]], "z": 1}, {"name": "Andel_fam", "type": "scatter", "data": [[88.9, 0], [59.0, 1], [45.8, 2], [80.6, 3], [82.6, 4]], "symbolSize": 14, "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "left", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Andel_alu", "type": "scatter", "data": [[81.4, 0], [53.8, 1], [47.6, 2], [74.4, 3], [46.2, 4]], "symbolSize": 14, "itemStyle": {"color": "#060786", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Fuenllana_line", "type": "custom", "renderItem": function(params, api) {  var d = params.value || api.value();  var start = api.coord([d[0], d[2]]);  var end = api.coord([d[1], d[2]]);  return {    type: 'line',    shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1] },    style: { stroke: '#c60027', lineWidth: 2, opacity: 0.4 }  };}, "data": [[89.6, 93.5, 0], [60.2, 63.6, 1], [61.2, 58.4, 2], [58.0, 83.1, 3], [13.3, 31.2, 4]], "z": 1}, {"name": "Fuenllana_fam", "type": "scatter", "data": [[93.5, 0], [63.6, 1], [58.4, 2], [83.1, 3], [31.2, 4]], "symbolSize": 14, "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "left", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Fuenllana_alu", "type": "scatter", "data": [[89.6, 0], [60.2, 1], [61.2, 2], [58.0, 3], [13.3, 4]], "symbolSize": 14, "itemStyle": {"color": "#c60027", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
-      allOriginals.push(JSON.parse(JSON.stringify(opt)));
-      chart.setOption(opt);
-      allCharts.push(chart);
-      chart._el = el;
-      window.addEventListener('resize', function() { chart.resize(); });
-      chart._howCompare = 'default';
-    })();
-    (function() {
-      var el = document.getElementById('cruce_tiempo');
-      var chart = echarts.init(el, null, { renderer: 'svg' });
-      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}, "formatter": function(ps) { var lines = []; ps.forEach(function(p) { if (p.seriesName.indexOf('Todos') !== 0) return; var v = Math.abs(p.data); var label = p.seriesName.includes('_alu') ? 'Alumnado' : 'Familias'; lines.push(label + ': ' + v + '%'); }); return '<b>' + ps[0].axisValue + '</b><br>' + lines.join('<br>'); }, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos_alu": true, "Todos_fam": true, "Andel_alu": false, "Andel_fam": false, "Fuenllana_alu": false, "Fuenllana_fam": false}}, "grid": {"left": 60, "right": 60, "top": 40, "bottom": 20, "containLabel": false}, "yAxis": {"type": "category", "data": ["< 1 h", "1-2 h", "2-3 h+", "> 3 h"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "min": -50, "max": 50, "axisLabel": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "graphic": [{"type": "text", "left": 10, "top": 12, "style": {"text": "← Familias estiman", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#888888"}}, {"type": "text", "right": 10, "top": 12, "style": {"text": "Alumnado declara →", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#888888"}}], "series": [{"name": "Todos_alu", "type": "bar", "stack": "Todos_stack", "data": [23.1, 37.2, 34.5, 5.2], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 28, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Todos_fam", "type": "bar", "data": [-35.8, -0.0, -0.0, -9.0], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [6, 0, 0, 6]}, "barMaxWidth": 28, "label": {"show": true, "position": "left", "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Andel_alu", "type": "bar", "stack": "Andel_stack", "data": [20.8, 37.2, 33.7, 8.2], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 28, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Andel_fam", "type": "bar", "data": [-37.5, -0.0, -0.0, -9.7], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [6, 0, 0, 6]}, "barMaxWidth": 28, "label": {"show": true, "position": "left", "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Fuenllana_alu", "type": "bar", "stack": "Fuenllana_stack", "data": [25.1, 37.2, 35.1, 2.6], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 28, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Fuenllana_fam", "type": "bar", "data": [-34.2, -0.0, -0.0, -8.4], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [6, 0, 0, 6]}, "barMaxWidth": 28, "label": {"show": true, "position": "left", "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
-      allOriginals.push(JSON.parse(JSON.stringify(opt)));
-      chart.setOption(opt);
-      allCharts.push(chart);
-      chart._el = el;
-      window.addEventListener('resize', function() { chart.resize(); });
-      chart._howCompare = 'default';
-    })();
-
-  function shouldShow(name, mode) {
-    var isTodos = name.indexOf('Todos') === 0;
-    var isAndel = name.indexOf('Andel') === 0;
-    var isFuenllana = name.indexOf('Fuenllana') === 0;
-    if (mode === 'todos') return isTodos;
-    if (mode === 'ambos') return isAndel || isFuenllana;
-    if (mode === 'Andel') return isAndel;
-    if (mode === 'Fuenllana') return isFuenllana;
-    return false;
-  }
 
   var LABEL_DEFAULT = '#3a3a3a';
   var COLOR_ANDEL = '#060786';
@@ -954,74 +850,83 @@
   function toggleSection(id) {
     var content = document.getElementById('content-' + id);
     var header = document.getElementById(id);
-    content.classList.toggle('expanded');
-    header.classList.toggle('expanded');
-    if (content.classList.contains('expanded')) {
+    if (!content.classList.contains('expanded')) {
+      content.style.opacity = '0';
+      content.classList.add('expanded');
+      header.classList.add('expanded');
       setTimeout(function() {
         allCharts.forEach(function(c) { c.resize(); });
+        applyFilter(_currentMode);
+        content.style.opacity = '1';
       }, 50);
+    } else {
+      content.classList.remove('expanded');
+      header.classList.remove('expanded');
     }
   }
 
-  function applyFilter(mode) {
-    document.querySelectorAll('.school-block').forEach(function(el) {
-      var s = el.dataset.school;
-      var show = (mode === 'todos' && s === 'todos') ||
-                 (mode === 'Andel' && s === 'Andel') ||
-                 (mode === 'Fuenllana' && s === 'Fuenllana') ||
-                 (mode === 'ambos' && (s === 'Andel' || s === 'Fuenllana'));
-      el.style.display = show ? '' : 'none';
-    });
-    allCharts.forEach(function(chart, idx) {
-      var section = chart._el ? chart._el.closest('.chart-section') : null;
-      if (chart._howCompare === 'sideBySide' && chart._compareFn) {
-        chart._compareFn(mode);
-      }
-      if (section && section.style.display === 'none') return;
-      if (section) section.style.display = '';
-      var insightEl = section ? section.querySelector('.chart-insight') : null;
-      if (insightEl) {
-        insightEl.classList.toggle('visible', mode === 'ambos');
-      }
-      var opt = chart.getOption();
-      var seriesUpdate = [];
-      opt.series.forEach(function(s) {
-        var lc = LABEL_DEFAULT;
-        if (mode === 'ambos') {
-          if (s.name.indexOf('Andel') === 0) lc = COLOR_ANDEL;
-          else if (s.name.indexOf('Fuenllana') === 0) lc = COLOR_FUENLLANA;
-        }
-        seriesUpdate.push({ label: { color: lc } });
-      });
-      chart.setOption({ series: seriesUpdate });
-      var names = opt.series.map(function(s) { return s.name; });
-      names.forEach(function(name) {
-        chart.dispatchAction({ type: shouldShow(name, mode) ? 'legendSelect' : 'legendUnSelect', name: name });
-      });
-    });
-    setTimeout(function() {
-      allCharts.forEach(function(c) { c.resize(); });
-    }, 50);
-  }
+  
+function shouldShow(name, mode) {
+  var isTodos = name.indexOf('Todos') === 0;
+  var isAndel = name.indexOf('Andel') === 0;
+  var isFuenllana = name.indexOf('Fuenllana') === 0;
+  if (mode === 'todos') return isTodos;
+  if (mode === 'ambos') return isAndel || isFuenllana;
+  if (mode === 'Andel') return isAndel;
+  if (mode === 'Fuenllana') return isFuenllana;
+  return false;
+}
 
-  var _currentMode = null;
-  function setFilter(mode, skipFade) {
-    document.querySelectorAll('.toggle-btn').forEach(function(btn) {
-      btn.classList.toggle('active', btn.dataset.filter === mode);
-    });
-    if (skipFade || !_currentMode) {
-      _currentMode = mode;
-      applyFilter(mode);
-      return;
+function applyFilter(mode) {
+  document.querySelectorAll('.school-block').forEach(function(el) {
+    var s = el.dataset.school;
+    var show = (mode === 'todos' && s === 'todos') ||
+               (mode === 'Andel' && s === 'Andel') ||
+               (mode === 'Fuenllana' && s === 'Fuenllana') ||
+               (mode === 'ambos' && (s === 'Andel' || s === 'Fuenllana'));
+    el.style.display = show ? '' : 'none';
+  });
+  allCharts.forEach(function(chart, idx) {
+    var section = chart._el ? chart._el.closest('.chart-section') : null;
+    if (chart._howCompare === 'sideBySide' && chart._compareFn) {
+      chart._compareFn(mode);
     }
-    _currentMode = mode;
-    var sections = document.querySelectorAll('.chart-section');
-    sections.forEach(function(s) { s.classList.add('fading'); });
-    setTimeout(function() {
-      applyFilter(mode);
-      sections.forEach(function(s) { s.classList.remove('fading'); });
-    }, 200);
-  }
+    if (section && section.style.display === 'none') return;
+    var content = chart._el ? chart._el.closest('.section-content') : null;
+    if (content && !content.classList.contains('expanded')) return;
+    if (section) section.style.display = '';
+    var insightEl = section ? section.querySelector('.chart-insight') : null;
+    if (insightEl) {
+      insightEl.classList.toggle('visible', mode === 'ambos');
+    }
+    var opt = chart.getOption();
+    var seriesUpdate = [];
+    opt.series.forEach(function(s) {
+      var lc = LABEL_DEFAULT;
+      if (mode === 'ambos') {
+        if (s.name.indexOf('Andel') === 0) lc = COLOR_ANDEL;
+        else if (s.name.indexOf('Fuenllana') === 0) lc = COLOR_FUENLLANA;
+      }
+      seriesUpdate.push({ label: { color: lc } });
+    });
+    chart.setOption({ series: seriesUpdate });
+    var names = opt.series.map(function(s) { return s.name; });
+    names.forEach(function(name) {
+      chart.dispatchAction({ type: shouldShow(name, mode) ? 'legendSelect' : 'legendUnSelect', name: name });
+    });
+  });
+}
+
+var _currentMode = null;
+function setFilter(mode) {
+  document.querySelectorAll('.toggle-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.filter === mode);
+  });
+  _currentMode = mode;
+  applyFilter(mode);
+}
+
+
   setFilter('todos');
 </script>
 </body>
