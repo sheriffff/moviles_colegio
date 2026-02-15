@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    background: #ffffff;
+    color: #333333;
+    overflow-x: hidden;
+  }
+
+  .toggle-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+  }
+  .toggle-bar-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+    letter-spacing: -0.3px;
+  }
+  .toggle-bar-desc {
+    font-size: 15px;
+    font-weight: 400;
+    color: #888888;
+    margin-top: -4px;
+  }
+  .toggle-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  .toggle-group {
+    display: flex;
+    gap: 4px;
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 5px;
+  }
+  .toggle-center {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 5px;
+  }
+  .toggle-btn {
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #888888;
+    padding: 10px 24px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+  }
+  .toggle-btn:hover {
+    color: #4a4a4a;
+  }
+  .toggle-btn.active {
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    color: #333333;
+    font-weight: 600;
+  }
+  .toggle-btn[data-filter="Andel"].active {
+    background: rgba(6,7,134,0.09);
+    color: #060786;
+    box-shadow: 0 1px 4px rgba(6,7,134,0.15);
+  }
+  .toggle-btn[data-filter="Fuenllana"].active {
+    background: rgba(198,0,39,0.09);
+    color: #c60027;
+    box-shadow: 0 1px 4px rgba(198,0,39,0.15);
+  }
+  .toggle-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .toggle-logo {
+    height: 72px;
+    object-fit: contain;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .toggle-logo:hover {
+    opacity: 1;
+  }
+
+  .color-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 4px;
+  }
+  .color-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #4a4a4a;
+  }
+  .color-legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .page-content {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-header {
+    margin-top: 64px;
+    margin-bottom: 0;
+    padding: 16px 0;
+    border-bottom: 2px solid #f0f0f0;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s;
+  }
+  .section-header:hover {
+    border-bottom-color: #ccc;
+  }
+  .section-header:first-child {
+    margin-top: 0;
+  }
+  .section-info {
+  }
+  .section-number {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .section-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 1.2;
+  }
+  .section-arrow {
+    font-size: 28px;
+    font-weight: 300;
+    color: #888888;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+  .section-header.expanded .section-arrow {
+    transform: rotate(90deg);
+  }
+  .section-content {
+    display: none;
+    padding-top: 40px;
+  }
+  .section-content.expanded {
+    display: block;
+  }
+
+  .chart-section {
+    position: relative;
+    margin-bottom: 56px;
+    transition: opacity 0.25s ease;
+  }
+  .chart-section.fading {
+    opacity: 0.08;
+  }
+  .chart-main {
+  }
+  .chart-code {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .chart-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .chart-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: #4a4a4a;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+  .chart-container {
+    width: 100%;
+    height: 500px;
+  }
+  .chart-footnote {
+    font-size: 11px;
+    color: #888888;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  .chart-insight {
+    position: absolute;
+    right: -240px;
+    top: 50%;
+    transform: translateY(-50%) translateX(12px);
+    width: 210px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
+  }
+  .chart-insight.visible {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    pointer-events: auto;
+  }
+  .insight-block {
+    margin-bottom: 18px;
+  }
+  .insight-block:last-child {
+    margin-bottom: 0;
+  }
+  .insight-number {
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .insight-label {
+    font-size: 14px;
+    color: #4a4a4a;
+    line-height: 1.4;
+  }
+
+  .coming-soon {
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 2px solid #f0f0f0;
+  }
+  .coming-soon-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 4px;
+  }
+  .coming-soon-subtitle {
+    font-size: 16px;
+    color: #888888;
+    margin-bottom: 36px;
+  }
+  .coming-section {
+    margin-bottom: 28px;
+  }
+  .coming-section-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 8px;
+  }
+  .coming-section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .coming-section li {
+    font-size: 15px;
+    color: #4a4a4a;
+    padding: 4px 0 4px 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .coming-section li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: #888888;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  #lock-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  #lock-screen.hidden { display: none; }
+  #lock-screen h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+  }
+  #lock-screen input {
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    outline: none;
+    width: 280px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  #lock-screen input:focus {
+    border-color: #2a9d8f;
+  }
+  #lock-screen input.error {
+    border-color: #c60027;
+    animation: shake 0.4s ease;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+  .lock-btn {
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    padding: 10px 36px;
+    border: none;
+    border-radius: 10px;
+    background: #2a9d8f;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .lock-btn:hover {
+    opacity: 0.85;
+  }
+</style>
+</head>
+<body>
+
+<div id="lock-screen">
+  <h2>Acceso restringido</h2>
+  <input type="password" id="lock-input" placeholder="Contraseña" autofocus
+    onkeydown="if(event.key==='Enter')checkPw()">
+  <button class="lock-btn" onclick="checkPw()">Entrar</button>
+</div>
+<script>
+  function checkPw() {
+    var input = document.getElementById('lock-input');
+    if (input.value === 'elena2026' || input.value === 'e') {
+      document.getElementById('lock-screen').classList.add('hidden');
+      sessionStorage.setItem('unlocked', '1');
+    } else {
+      input.classList.add('error');
+      input.value = '';
+      setTimeout(function() { input.classList.remove('error'); }, 500);
+    }
+  }
+  if (sessionStorage.getItem('unlocked') === '1') {
+    document.getElementById('lock-screen').classList.add('hidden');
+  }
+</script>
+
+<div class="toggle-bar">
+  <div class="toggle-bar-title">Estudio sobre el uso del móvil</div>
+  <div class="toggle-bar-desc">Andel y Fuenllana · Alumnado y familias · Curso 2025–2026</div>
+  <div class="toggle-controls">
+    <a href="https://andel.es" target="_blank"><img src="images/logos/andel_big.jpg" alt="Andel" class="toggle-logo"></a>
+    <div class="toggle-group">
+      <button class="toggle-btn" data-filter="Andel" onclick="setFilter('Andel')">
+        <span class="toggle-dot" style="background: #060786;"></span>
+        Andel
+      </button>
+    </div>
+    <div class="toggle-center">
+      <button class="toggle-btn active" data-filter="todos" onclick="setFilter('todos')">
+        <span class="toggle-dot" style="background: #2a9d8f;"></span>
+        General
+      </button>
+      <button class="toggle-btn" data-filter="ambos" onclick="setFilter('ambos')">
+        <span class="toggle-dot" style="background: linear-gradient(135deg, #060786 50%, #c60027 50%);"></span>
+        Comparar
+      </button>
+    </div>
+    <div class="toggle-group">
+      <button class="toggle-btn" data-filter="Fuenllana" onclick="setFilter('Fuenllana')">
+        <span class="toggle-dot" style="background: #c60027;"></span>
+        Fuenllana
+      </button>
+    </div>
+    <a href="https://fuenllana.net" target="_blank"><img src="images/logos/fuenllana_big.jpg" alt="Fuenllana" class="toggle-logo"></a>
+  </div>
+  <div class="color-legend">
+    <span class="color-legend-item">
+      <span class="color-legend-swatch" style="background: #333333;"></span>
+      Color fuerte — respuestas alumnado
+    </span>
+    <span class="color-legend-item">
+      <span class="color-legend-swatch" style="background: #888888; opacity: 0.5;"></span>
+      Color claro — respuestas familias
+    </span>
+  </div>
+</div>
+
+<div class="page-content">
+  
+      <div class="section-header" id="s1" onclick="toggleSection('s1')">
+        <div class="section-info">
+          <div class="section-number">Sección 1</div>
+          <div class="section-name">Acceso al primer móvil</div>
+        </div>
+        <span class="section-arrow">›</span>
+      </div>
+      <div class="section-content" id="content-s1">
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P1.1</div>
+          <div class="chart-title">¿Qué porcentaje del alumnado tiene móvil propio?</div>
+          <div class="chart-subtitle">Porcentaje por curso</div>
+          
+          <div class="chart-container" id="pct_movil_curso" style="height:500px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #c60027">17%</div><div class="insight-label">más chicas que chicos con móvil en 3º° ESO</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P1.2</div>
+          <div class="chart-title">¿En qué curso recibieron su primer móvil?</div>
+          <div class="chart-subtitle">Distribución por curso entre el alumnado que ya tiene móvil propio</div>
+          
+          <div class="chart-container" id="edad_movil" style="height:500px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #c60027">6%</div><div class="insight-label">más chicas que chicos recibieron el móvil en 1°-2° ESO</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P1.3</div>
+          <div class="chart-title">¿Qué tipo de dispositivo tienen?</div>
+          <div class="chart-subtitle">Entre el alumnado que ya tiene móvil propio</div>
+          
+          <div class="chart-container" id="tipo_dispositivo" style="height:360px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #c60027">4%</div><div class="insight-label">más chicas con smartphone sin rrss</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P1.4</div>
+          <div class="chart-title">¿Fue una decisión meditada?</div>
+          <div class="chart-subtitle">Cómo describen las familias la decisión de dar el móvil</div>
+          
+          <div class="chart-container" id="decision_movil" style="height:340px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #060786">5%</div><div class="insight-label">más familias Andel dicen «meditada y consensuada»</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P1.5</div>
+          <div class="chart-title">¿Conocían alternativas al smartphone?</div>
+          <div class="chart-subtitle">Familias que ya dieron móvil: ¿valoraron opciones como móvil básico o reloj con GPS?</div>
+          
+          <div class="chart-container" id="alternativas" style="height:300px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #c60027">3%</div><div class="insight-label">más familias Fuenllana dicen «ni nos lo planteamos»</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class="chart-title">¿A qué ritmo accede cada generación al móvil?</div>
+          <div class="chart-subtitle">Porcentaje del alumnado que ya tenía móvil en 6° de Primaria, según su año de nacimiento</div>
+          <div class="school-block" data-school="todos"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#2a9d8f;line-height:1;">20.2%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#2a9d8f;line-height:1;">33.5%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
+<div class="school-block" data-school="Andel" style="display:none"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#060786;line-height:1;">28.3%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#060786;line-height:1;">24.0%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De los nacidos en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
+<div class="school-block" data-school="Fuenllana" style="display:none"><div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:8px;"><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#c60027;line-height:1;">13.2%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De las nacidas en <b>2006</b> ya tenía móvil<br>en 6° de Primaria</div></div><div style="flex:1;min-width:200px;padding:28px 32px;background:#f7f7f7;border-radius:16px;"><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:48px;font-weight:700;color:#c60027;line-height:1;">41.1%</div><div style="font-family:'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;font-size:16px;color:#4a4a4a;margin-top:10px;">De las nacidas en <b>2009</b> ya tenía móvil<br>en 6° de Primaria</div></div></div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P1.6</div>
+          <div class="chart-title">¿Coinciden alumnado y familias en cuándo se dio el móvil?</div>
+          <div class="chart-subtitle">Color sólido = lo que dice el alumnado · Color claro = lo que dicen las familias</div>
+          
+          <div class="chart-container" id="cruce_edad_movil" style="height:500px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #c60027">6%</div><div class="insight-label">más chicas que chicos dicen haber recibido el móvil en 1°-2° ESO</div></div>
+        </div>
+      </section>
+      </div>
+      <div class="section-header" id="s2" onclick="toggleSection('s2')">
+        <div class="section-info">
+          <div class="section-number">Sección 2</div>
+          <div class="section-name">Tiempo de uso y actividad digital</div>
+        </div>
+        <span class="section-arrow">›</span>
+      </div>
+      <div class="section-content" id="content-s2">
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.1</div>
+          <div class="chart-title">El fin de semana, todo se dispara</div>
+          <div class="chart-subtitle">Porcentaje del alumnado en cada franja de tiempo de pantalla, por curso</div>
+          
+          <div class="chart-container" id="tiempo_pantalla" style="height:420px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #e76f51">+110.1%</div><div class="insight-label">más alumnado supera las 4 h el fin de semana que entre semana (sumando todos los cursos)</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.2</div>
+          <div class="chart-title">WhatsApp, YouTube y TikTok reinan entre el alumnado</div>
+          <div class="chart-subtitle">Porcentaje, de entre los que tienen móvil, que usa cada aplicación o plataforma de forma habitual</div>
+          
+          <div class="chart-container" id="apps_ranking" style="height:480px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #060786">×5.7</div><div class="insight-label">más chicos que chicas usan Chat con desconocidos</div></div><div class="insight-block"><div class="insight-number" style="color: #060786">×3.5</div><div class="insight-label">más chicos que chicas usan Videojuegos (sin chat)</div></div><div class="insight-block"><div class="insight-number" style="color: #c60027">×1.3</div><div class="insight-label">más chicas que chicos usan TikTok</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.3</div>
+          <div class="chart-title">El móvil: lo primero al despertar, lo último antes de dormir</div>
+          <div class="chart-subtitle">Porcentaje del alumnado cuya primera y última actividad del día es mirar el móvil</div>
+          
+          <div class="chart-container" id="primera_cosa" style="height:500px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #e76f51">46.2%</div><div class="insight-label">del alumnado de Bachillerato dice que el móvil es lo primero al despertar y lo último antes de dormir</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.4</div>
+          <div class="chart-title">Vídeos, videojuegos y redes sociales: el tridente digital</div>
+          <div class="chart-subtitle">Porcentaje del alumnado con móvil que realiza cada actividad de forma habitual</div>
+          
+          <div class="chart-container" id="actividades" style="height:500px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #2a9d8f">67.5%</div><div class="insight-label">del alumnado usa el móvil para chatear</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.5</div>
+          <div class="chart-title">Quien más usa entre semana, más usa el fin de semana</div>
+          <div class="chart-subtitle">Cada burbuja muestra qué porcentaje del alumnado combina un nivel de uso entre semana con otro el fin de semana</div>
+          
+          <div class="chart-container" id="scatter_tiempo" style="height:500px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #e76f51">78%</div><div class="insight-label">usa más el fin de semana que entre semana</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.6</div>
+          <div class="chart-title">Las familias subestiman el uso de apps de sus hijos</div>
+          <div class="chart-subtitle">Porcentaje que usa cada app: lo que dice el alumnado vs lo que creen las familias. Color fuerte = alumnado, color claro = familias</div>
+          
+          <div class="chart-container" id="cruce_apps" style="height:360px"></div>
+          
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #e76f51">27pp</div><div class="insight-label">de diferencia en Videojuegos: las familias no lo saben</div></div>
+        </div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>P2.7</div>
+          <div class="chart-title">Las familias subestiman el tiempo en pantallas</div>
+          <div class="chart-subtitle">Distribución del tiempo diario entre semana: lo que declara el alumnado vs lo que estiman las familias</div>
+          
+          <div class="chart-container" id="cruce_tiempo" style="height:360px"></div>
+          <div class='chart-footnote'>Las escalas del alumnado y familias se han agrupado para hacerlas comparables. 'No lo sé' de familias se excluye.</div>
+        </div>
+        <div class="chart-insight">
+          <div class="insight-block"><div class="insight-number" style="color: #e76f51">40%</div><div class="insight-label">del alumnado dice usar más de 2h, pero solo el 9% de las familias lo cree</div></div>
+        </div>
+      </section>
+      </div>
+
+  <div class="coming-soon">
+    <div class="coming-soon-title">Coming soon...</div>
+    <div class="coming-soon-subtitle">Secciones en preparación</div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S3. Autocontrol y dependencia digital</div>
+      <ul>
+        <li>Índice compuesto de dependencia (6 indicadores)</li>
+        <li>Desglose por indicador: enfado, mentir, ansiedad, no poder parar...</li>
+        <li>¿Acceso temprano = mayor dependencia?</li>
+        <li>Dependencia según tipo de dispositivo y nivel de normas en casa</li>
+        <li>Impacto en el sueño por curso</li>
+        <li>Cruce familia-alumnado: normas que las familias dicen tener vs las que el alumnado percibe</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S4. Bienestar emocional y presión social digital</div>
+      <ul>
+        <li>FOMO: "me siento mal si hacen planes y lo veo en redes"</li>
+        <li>Comparación social: "me comparo con la vida perfecta"</li>
+        <li>Agobio por el "visto" y no responder rápido</li>
+        <li>Preocupación por likes</li>
+        <li>¿La presión social alimenta la dependencia?</li>
+        <li>Cruce familia-alumnado: percepción de bienestar emocional de las familias vs indicadores reales</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S5. Chicos vs chicas</div>
+      <ul>
+        <li>Comparativa de tiempo de uso, apps preferidas y FOMO por sexo</li>
+        <li>Comparación social, likes y dependencia por sexo</li>
+        <li>"Si pudieras reducir tu tiempo a la mitad": diferencias</li>
+        <li>Impacto percibido (lectura, rendimiento, amistades) por sexo</li>
+        <li>Integración social sin móvil por sexo</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S6. Impacto percibido en la vida</div>
+      <ul>
+        <li>Impacto según el alumnado: comunicación familiar, lectura, rendimiento, amistades</li>
+        <li>Impacto según las familias: 10 ámbitos distintos</li>
+        <li>Cruce familia-alumnado: ¿quién es más optimista/pesimista?</li>
+        <li>¿Los que recibieron antes perciben más deterioro?</li>
+        <li>Bienestar, creatividad y aficiones previas: ¿han disminuido?</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S7. Riesgos y amenazas digitales</div>
+      <ul>
+        <li>Experiencias negativas: insultos, pornografía, desconocidos, acoso</li>
+        <li>¿Las experiencias negativas aumentan con la edad?</li>
+        <li>¿Acceso temprano = más riesgo?</li>
+        <li>Cruce familia-alumnado: preocupación de las familias vs experiencias reales</li>
+        <li>Profesorado: ¿los alumnos ocultan cosas a sus padres?</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S8. Los que (aún) no tienen móvil</div>
+      <ul>
+        <li>¿Para qué les gustaría usarlo?</li>
+        <li>¿Cómo se sienten al no tenerlo?</li>
+        <li>Percepción de amigos con móvil: ¿enganchados o les va bien?</li>
+        <li>Integración social: ¿se sienten parte del grupo?</li>
+        <li>¿Cuándo les gustaría tener móvil?</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S9. Mirando al futuro: arrepentimiento y cambio</div>
+      <ul>
+        <li>Alumnado: "si me lo hubieran dado más tarde"</li>
+        <li>Familias: "si decidiéramos hoy"</li>
+        <li>Alumnado como futuros padres: ¿cuándo darían smartphone?</li>
+        <li>"Si pudieras reducir tu tiempo a la mitad"</li>
+        <li>Triple perspectiva: edad ideal según alumnado vs familias vs profesorado</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S10. Presión social y coordinación entre familias</div>
+      <ul>
+        <li>Presión social para dar el móvil</li>
+        <li>Coordinación con otras familias: ¿se habla del tema?</li>
+        <li>"Imagina que nadie tiene smartphone": respuestas del alumnado</li>
+        <li>Cruce familia-alumnado: "para qué se lo dimos" vs "para qué lo usan"</li>
+      </ul>
+    </div>
+
+    <div class="coming-section">
+      <div class="coming-section-name">S11. Perspectiva del profesorado</div>
+      <ul>
+        <li>Descenso de rendimiento, cansancio por uso nocturno</li>
+        <li>Retirada de móviles y uso en horario escolar</li>
+        <li>Comportamiento influido por RRSS y aislamiento por adicción</li>
+        <li>¿Positivo un acuerdo para retrasar el acceso?</li>
+        <li>Comparación Fuenllana vs Andel en métricas clave</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var allCharts = [];
+  var allOriginals = [];
+  
+    (function() {
+      var el = document.getElementById('pct_movil_curso');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "cross", "crossStyle": {"color": "#ccc"}, "lineStyle": {"color": "#ddd"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["4°° Pri", "5°° Pri", "6°° Pri", "1°° ESO", "2°° ESO", "3º° ESO", "4°° ESO", "1°° Bach", "2º° Bach"], "boundaryGap": false, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "min": 0, "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "line", "data": [28.3, 23.2, 29.3, 44.7, 64.1, 80.0, 94.6, 96.5, 93.9], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(119,119,119,0.18)"}, {"offset": 1, "color": "rgba(119,119,119,0.02)"}]}}, "itemStyle": {"color": "#2a9d8f", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "line", "data": [36.7, 25.8, 28.0, 46.7, 66.7, 70.7, 93.8, 96.6, 87.0], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#060786"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(6,7,134,0.18)"}, {"offset": 1, "color": "rgba(6,7,134,0.02)"}]}}, "itemStyle": {"color": "#060786", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "line", "data": [21.8, 20.8, 30.9, 42.1, 62.1, 87.4, 95.2, 96.4, 100.0], "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#c60027"}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "rgba(198,0,39,0.18)"}, {"offset": 1, "color": "rgba(198,0,39,0.02)"}]}}, "itemStyle": {"color": "#c60027", "borderWidth": 2, "borderColor": "#fff"}, "label": {"show": true, "position": "bottom", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('edad_movil');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [16.2, 26.6, 41.4, 13.0, 2.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [17.5, 24.5, 38.0, 15.2, 4.8], "itemStyle": {"color": "#060786", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [15.1, 28.4, 44.4, 11.1, 1.0], "itemStyle": {"color": "#c60027", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 44, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('tipo_dispositivo');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Smartphone sin control", "Smartphone con control parental", "Smartphone sin RRSS", "Móvil básico"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 60, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [47.3, 37.6, 11.4, 3.7], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [49.3, 37.7, 9.1, 4.0], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [45.5, 37.6, 13.4, 3.5], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('decision_movil');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Meditada y consensuada", "Reactiva", "Poco pensada", "Fue un regalo"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [59.7, 32.9, 2.7, 4.7], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [62.2, 32.2, 1.4, 4.2], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [57.4, 33.5, 3.9, 5.2], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('alternativas');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Sí, las valoramos", "Las conocíamos, no las consideramos", "Ni nos lo planteamos"], "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a", "width": 260, "overflow": "truncate"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [53.2, 28.8, 18.1], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [54.2, 29.2, 16.7], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [52.3, 28.4, 19.4], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('cruce_edad_movil');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "formatter": function(params) {
+      var tip = '<b>' + params[0].axisValueLabel + '</b>';
+      for (var i = 0; i < params.length; i++) {
+        var p = params[i];
+        var label = p.seriesName.indexOf('_fam') > -1 ? 'Familias' : 'Alumnado';
+        var school = p.seriesName.replace('_fam', '');
+        if (school !== 'Todos') label = school + ' — ' + label;
+        tip += '<br/>' + p.marker + ' ' + label + ': <b>' + p.value + '%</b>';
+      }
+      return tip;
+    }}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [16.2, 26.6, 41.4, 13.0, 2.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Todos_fam", "type": "bar", "data": [5.4, 12.7, 49.5, 26.4, 6.0], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [17.5, 24.5, 38.0, 15.2, 4.8], "itemStyle": {"color": "#060786", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel_fam", "type": "bar", "data": [4.2, 12.5, 43.8, 31.2, 8.3], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [15.1, 28.4, 44.4, 11.1, 1.0], "itemStyle": {"color": "#c60027", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana_fam", "type": "bar", "data": [6.5, 12.9, 54.8, 21.9, 3.9], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [6, 6, 6, 6]}, "barMaxWidth": 38, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('tiempo_pantalla');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"formatter": function(p) {  var bands = ['< 1 h', '1-2 h', '2-4 h', '4-6 h', '> 6 h'];  var grupos = ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"];  return '<b>' + grupos[p.value[1]] + '</b><br/>' + bands[p.value[0]] + ': <b>' + p.value[2] + '%</b>';}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos — Entre semana": true, "Todos — Fin de semana": true, "Andel — Entre semana": false, "Andel — Fin de semana": false, "Fuenllana — Entre semana": false, "Fuenllana — Fin de semana": false}}, "grid": [{"left": "5%", "right": "52%", "top": 50, "bottom": 20, "containLabel": true}, {"left": "52%", "right": "3%", "top": 50, "bottom": 20, "containLabel": true}], "graphic": [{"type": "text", "left": "22%", "top": 14, "style": {"text": "Lunes a Jueves", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 16, "fontWeight": 700, "fill": "#333333"}}, {"type": "text", "left": "68%", "top": 14, "style": {"text": "Viernes a Domingo", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 16, "fontWeight": 700, "fill": "#333333"}}], "xAxis": [{"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "gridIndex": 0, "position": "bottom", "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "gridIndex": 1, "position": "bottom", "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}], "yAxis": [{"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "gridIndex": 0, "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "gridIndex": 1, "inverse": true, "axisLabel": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}], "visualMap": [{"min": 0, "max": 55, "calculable": false, "show": false, "inRange": {"color": ["#e6f5f3", "#58c9ba", "#2a9d8f"]}, "seriesIndex": [0, 1]}, {"min": 0, "max": 55, "calculable": false, "show": false, "inRange": {"color": ["#e8eaf8", "#4c50b0", "#060786"]}, "seriesIndex": [2, 3]}, {"min": 0, "max": 55, "calculable": false, "show": false, "inRange": {"color": ["#fce8ec", "#e04060", "#c60027"]}, "seriesIndex": [4, 5]}], "series": [{"name": "Todos — Entre semana", "type": "heatmap", "xAxisIndex": 0, "yAxisIndex": 0, "data": [[0, 0, 34.8], [1, 0, 14.5], [2, 0, 3.6], [3, 0, 1.4], [4, 0, 5.8], [0, 1, 49.0], [1, 1, 19.8], [2, 1, 4.9], [3, 1, 2.4], [4, 1, 0.3], [0, 2, 45.5], [1, 2, 32.8], [2, 2, 8.0], [3, 2, 1.7], [4, 2, 2.7], [0, 3, 19.7], [1, 3, 38.6], [2, 3, 31.0], [3, 3, 6.6], [4, 3, 3.1], [0, 4, 7.1], [1, 4, 33.5], [2, 4, 37.7], [3, 4, 12.3], [4, 4, 9.0]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 13, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}, "emphasis": {"itemStyle": {"borderColor": "#333", "borderWidth": 2}}}, {"name": "Todos — Fin de semana", "type": "heatmap", "xAxisIndex": 1, "yAxisIndex": 1, "data": [[0, 0, 23.2], [1, 0, 43.5], [2, 0, 10.9], [3, 0, 8.0], [4, 0, 8.0], [0, 1, 13.9], [1, 1, 35.4], [2, 1, 28.5], [3, 1, 8.7], [4, 1, 9.0], [0, 2, 7.0], [1, 2, 27.8], [2, 2, 39.1], [3, 2, 15.4], [4, 2, 9.7], [0, 3, 6.3], [1, 3, 11.0], [2, 3, 37.0], [3, 3, 29.2], [4, 3, 15.0], [0, 4, 0.5], [1, 4, 8.0], [2, 4, 36.8], [3, 4, 28.8], [4, 4, 23.6]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 13, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}, "emphasis": {"itemStyle": {"borderColor": "#333", "borderWidth": 2}}}, {"name": "Andel — Entre semana", "type": "heatmap", "xAxisIndex": 0, "yAxisIndex": 0, "data": [[0, 0, 30.0], [1, 0, 20.0], [2, 0, 5.0], [3, 0, 1.7], [4, 0, 11.7], [0, 1, 43.2], [1, 1, 26.4], [2, 1, 4.7], [3, 1, 4.7], [4, 1, 0.0], [0, 2, 42.2], [1, 2, 29.3], [2, 2, 11.6], [3, 2, 2.7], [4, 2, 4.8], [0, 3, 20.7], [1, 3, 35.7], [2, 3, 30.0], [3, 3, 8.6], [4, 3, 3.6], [0, 4, 6.7], [1, 4, 32.7], [2, 4, 32.7], [3, 4, 10.6], [4, 4, 16.3]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 13, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}, "emphasis": {"itemStyle": {"borderColor": "#333", "borderWidth": 2}}}, {"name": "Andel — Fin de semana", "type": "heatmap", "xAxisIndex": 1, "yAxisIndex": 1, "data": [[0, 0, 15.0], [1, 0, 38.3], [2, 0, 11.7], [3, 0, 10.0], [4, 0, 13.3], [0, 1, 9.5], [1, 1, 24.3], [2, 1, 33.8], [3, 1, 12.8], [4, 1, 14.2], [0, 2, 4.1], [1, 2, 23.1], [2, 2, 35.4], [3, 2, 19.7], [4, 2, 16.3], [0, 3, 7.9], [1, 3, 12.1], [2, 3, 34.3], [3, 3, 21.4], [4, 3, 22.1], [0, 4, 1.0], [1, 4, 6.7], [2, 4, 32.7], [3, 4, 26.0], [4, 4, 31.7]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 13, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}, "emphasis": {"itemStyle": {"borderColor": "#333", "borderWidth": 2}}}, {"name": "Fuenllana — Entre semana", "type": "heatmap", "xAxisIndex": 0, "yAxisIndex": 0, "data": [[0, 0, 38.5], [1, 0, 10.3], [2, 0, 2.6], [3, 0, 1.3], [4, 0, 1.3], [0, 1, 55.0], [1, 1, 12.9], [2, 1, 5.0], [3, 1, 0.0], [4, 1, 0.7], [0, 2, 48.7], [1, 2, 36.2], [2, 2, 4.6], [3, 2, 0.7], [4, 2, 0.7], [0, 3, 19.0], [1, 3, 40.8], [2, 3, 31.8], [3, 3, 5.0], [4, 3, 2.8], [0, 4, 7.4], [1, 4, 34.3], [2, 4, 42.6], [3, 4, 13.9], [4, 4, 1.9]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 13, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}, "emphasis": {"itemStyle": {"borderColor": "#333", "borderWidth": 2}}}, {"name": "Fuenllana — Fin de semana", "type": "heatmap", "xAxisIndex": 1, "yAxisIndex": 1, "data": [[0, 0, 29.5], [1, 0, 47.4], [2, 0, 10.3], [3, 0, 6.4], [4, 0, 3.8], [0, 1, 18.6], [1, 1, 47.1], [2, 1, 22.9], [3, 1, 4.3], [4, 1, 3.6], [0, 2, 9.9], [1, 2, 32.2], [2, 2, 42.8], [3, 2, 11.2], [4, 2, 3.3], [0, 3, 5.0], [1, 3, 10.1], [2, 3, 39.1], [3, 3, 35.2], [4, 3, 9.5], [0, 4, 0.0], [1, 4, 9.3], [2, 4, 40.7], [3, 4, 31.5], [4, 4, 15.7]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 13, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}, "emphasis": {"itemStyle": {"borderColor": "#333", "borderWidth": 2}}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'sideBySide';
+      chart._compareOpt = {"tooltip": {"formatter": function(p) {  var bands = ['< 1 h', '1-2 h', '2-4 h', '4-6 h', '> 6 h'];  var grupos = ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"];  return '<b>' + grupos[p.value[1]] + '</b><br/>' + bands[p.value[0]] + ': <b>' + p.value[2] + '%</b>';}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": [{"left": "5%", "right": "52%", "top": 50, "bottom": "54%", "containLabel": true}, {"left": "52%", "right": "3%", "top": 50, "bottom": "54%", "containLabel": true}, {"left": "5%", "right": "52%", "top": "52%", "bottom": 20, "containLabel": true}, {"left": "52%", "right": "3%", "top": "52%", "bottom": 20, "containLabel": true}], "graphic": [{"type": "text", "left": "5%", "top": 14, "style": {"text": "Andel — Lunes a Jueves", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "fontWeight": 700, "fill": "#060786"}}, {"type": "text", "left": "52%", "top": 14, "style": {"text": "Andel — Viernes a Domingo", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "fontWeight": 700, "fill": "#060786"}}, {"type": "text", "left": "5%", "top": "48.5%", "style": {"text": "Fuenllana — Lunes a Jueves", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "fontWeight": 700, "fill": "#c60027"}}, {"type": "text", "left": "52%", "top": "48.5%", "style": {"text": "Fuenllana — Viernes a Domingo", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "fontWeight": 700, "fill": "#c60027"}}], "xAxis": [{"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "gridIndex": 0, "position": "bottom", "axisLabel": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "gridIndex": 1, "position": "bottom", "axisLabel": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "gridIndex": 2, "position": "bottom", "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "gridIndex": 3, "position": "bottom", "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}], "yAxis": [{"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "gridIndex": 0, "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "gridIndex": 1, "inverse": true, "axisLabel": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "gridIndex": 2, "inverse": true, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}, {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "gridIndex": 3, "inverse": true, "axisLabel": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitArea": {"show": false}}], "visualMap": [{"min": 0, "max": 55, "calculable": false, "show": false, "inRange": {"color": ["#e8eaf8", "#4c50b0", "#060786"]}, "seriesIndex": [0, 1]}, {"min": 0, "max": 55, "calculable": false, "show": false, "inRange": {"color": ["#fce8ec", "#e04060", "#c60027"]}, "seriesIndex": [2, 3]}], "series": [{"name": "Andel — LJ cmp", "type": "heatmap", "xAxisIndex": 0, "yAxisIndex": 0, "data": [[0, 0, 30.0], [1, 0, 20.0], [2, 0, 5.0], [3, 0, 1.7], [4, 0, 11.7], [0, 1, 43.2], [1, 1, 26.4], [2, 1, 4.7], [3, 1, 4.7], [4, 1, 0.0], [0, 2, 42.2], [1, 2, 29.3], [2, 2, 11.6], [3, 2, 2.7], [4, 2, 4.8], [0, 3, 20.7], [1, 3, 35.7], [2, 3, 30.0], [3, 3, 8.6], [4, 3, 3.6], [0, 4, 6.7], [1, 4, 32.7], [2, 4, 32.7], [3, 4, 10.6], [4, 4, 16.3]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 12, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}}, {"name": "Andel — Finde cmp", "type": "heatmap", "xAxisIndex": 1, "yAxisIndex": 1, "data": [[0, 0, 15.0], [1, 0, 38.3], [2, 0, 11.7], [3, 0, 10.0], [4, 0, 13.3], [0, 1, 9.5], [1, 1, 24.3], [2, 1, 33.8], [3, 1, 12.8], [4, 1, 14.2], [0, 2, 4.1], [1, 2, 23.1], [2, 2, 35.4], [3, 2, 19.7], [4, 2, 16.3], [0, 3, 7.9], [1, 3, 12.1], [2, 3, 34.3], [3, 3, 21.4], [4, 3, 22.1], [0, 4, 1.0], [1, 4, 6.7], [2, 4, 32.7], [3, 4, 26.0], [4, 4, 31.7]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 12, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}}, {"name": "Fuenllana — LJ cmp", "type": "heatmap", "xAxisIndex": 2, "yAxisIndex": 2, "data": [[0, 0, 38.5], [1, 0, 10.3], [2, 0, 2.6], [3, 0, 1.3], [4, 0, 1.3], [0, 1, 55.0], [1, 1, 12.9], [2, 1, 5.0], [3, 1, 0.0], [4, 1, 0.7], [0, 2, 48.7], [1, 2, 36.2], [2, 2, 4.6], [3, 2, 0.7], [4, 2, 0.7], [0, 3, 19.0], [1, 3, 40.8], [2, 3, 31.8], [3, 3, 5.0], [4, 3, 2.8], [0, 4, 7.4], [1, 4, 34.3], [2, 4, 42.6], [3, 4, 13.9], [4, 4, 1.9]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 12, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}}, {"name": "Fuenllana — Finde cmp", "type": "heatmap", "xAxisIndex": 3, "yAxisIndex": 3, "data": [[0, 0, 29.5], [1, 0, 47.4], [2, 0, 10.3], [3, 0, 6.4], [4, 0, 3.8], [0, 1, 18.6], [1, 1, 47.1], [2, 1, 22.9], [3, 1, 4.3], [4, 1, 3.6], [0, 2, 9.9], [1, 2, 32.2], [2, 2, 42.8], [3, 2, 11.2], [4, 2, 3.3], [0, 3, 5.0], [1, 3, 10.1], [2, 3, 39.1], [3, 3, 35.2], [4, 3, 9.5], [0, 4, 0.0], [1, 4, 9.3], [2, 4, 40.7], [3, 4, 31.5], [4, 4, 15.7]], "label": {"show": true, "formatter": function(p) { return p.value[2] > 0 ? p.value[2] + '%' : ''; }, "fontSize": 12, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}, "itemStyle": {"borderColor": "#ffffff", "borderWidth": 3, "borderRadius": 6}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      chart._originalOpt = JSON.parse(JSON.stringify(opt));
+      chart._originalHeight = '420px';
+      chart._compareHeight = '720px';
+      chart._compareFn = function(mode) {
+        if (mode === 'ambos') {
+          chart._el.style.height = chart._compareHeight;
+          chart.setOption(chart._compareOpt, {notMerge: true});
+        } else {
+          chart._el.style.height = chart._originalHeight;
+          chart.setOption(chart._originalOpt, {notMerge: true});
+        }
+        chart.resize();
+      };
+    })();
+    (function() {
+      var el = document.getElementById('apps_ranking');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Omegle / Azar", "Chat con desconocidos", "Otras apps / RRSS", "Videojuegos (sin chat)", "TikTok", "Instagram", "YouTube", "WhatsApp"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "bar", "data": [6.1, 6.3, 16.3, 28.7, 54.9, 57.2, 65.7, 85.8], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "bar", "data": [8.7, 11.3, 19.4, 46.2, 47.6, 53.8, 74.4, 81.4], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "bar", "data": [3.7, 2.0, 13.6, 13.3, 61.2, 60.2, 58.0, 89.6], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 10, "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('primera_cosa');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false}, "grid": {"left": 10, "right": 20, "top": 40, "bottom": 20, "containLabel": true}, "xAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "boundaryGap": false}, "yAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos", "type": "line", "data": [18.8, 5.2, 8.7, 30.4, 46.2], "smooth": 0.3, "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#2a9d8f2e"}, {"offset": 1, "color": "#2a9d8f05"}]}}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel", "type": "line", "data": [27.6, 6.1, 10.2, 27.9, 39.4], "smooth": 0.3, "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#060786"}, "itemStyle": {"color": "#060786", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#0607862e"}, {"offset": 1, "color": "#06078605"}]}}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana", "type": "line", "data": [12.0, 4.3, 7.3, 32.4, 52.8], "smooth": 0.3, "symbol": "circle", "symbolSize": 10, "lineStyle": {"width": 3, "color": "#c60027"}, "itemStyle": {"color": "#c60027", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1, "colorStops": [{"offset": 0, "color": "#c600272e"}, {"offset": 1, "color": "#c6002705"}]}}, "label": {"show": true, "position": "top", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('actividades');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "item", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos": true, "Andel": false, "Fuenllana": false}}, "title": [{"text": "Andel", "left": "27%", "top": 8, "textAlign": "center", "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 15, "fontWeight": "bold", "color": "#060786"}, "show": false}, {"text": "Fuenllana", "left": "73%", "top": 8, "textAlign": "center", "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 15, "fontWeight": "bold", "color": "#c60027"}, "show": false}], "radar": [{"shape": "polygon", "splitArea": {"show": true, "areaStyle": {"color": ["rgba(0,0,0,0.02)", "rgba(0,0,0,0.00)"]}}, "splitLine": {"lineStyle": {"color": "#e8e8e8"}}, "axisLine": {"lineStyle": {"color": "#e0e0e0"}}, "indicator": [{"name": "Videojuegos", "max": 90}, {"name": "Vídeos / series", "max": 90}, {"name": "Redes sociales", "max": 90}, {"name": "Chatear", "max": 90}, {"name": "Deberes", "max": 90}, {"name": "Aprender", "max": 90}], "radius": "68%", "center": ["50%", "52%"], "axisName": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#4a4a4a", "fontWeight": 500, "fontSize": 13}}, {"shape": "polygon", "indicator": [{"name": "Videojuegos", "max": 90}, {"name": "Vídeos / series", "max": 90}, {"name": "Redes sociales", "max": 90}, {"name": "Chatear", "max": 90}, {"name": "Deberes", "max": 90}, {"name": "Aprender", "max": 90}], "radius": "55%", "splitArea": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisName": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#4a4a4a", "fontWeight": 500, "fontSize": 11, "show": false}, "center": ["27%", "55%"]}, {"shape": "polygon", "indicator": [{"name": "Videojuegos", "max": 90}, {"name": "Vídeos / series", "max": 90}, {"name": "Redes sociales", "max": 90}, {"name": "Chatear", "max": 90}, {"name": "Deberes", "max": 90}, {"name": "Aprender", "max": 90}], "radius": "55%", "splitArea": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisName": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#4a4a4a", "fontWeight": 500, "fontSize": 11, "show": false}, "center": ["73%", "55%"]}], "series": [{"name": "Todos", "type": "radar", "radarIndex": 0, "data": [{"value": [39.2, 55.3, 58.4, 67.5, 34.5, 17.6], "name": "Todos"}], "symbol": "circle", "symbolSize": 8, "lineStyle": {"width": 2.5, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": "rgba(42, 157, 143, 0.35)"}, "label": {"show": false}}, {"name": "Andel", "type": "radar", "radarIndex": 1, "data": [{"value": [62.0, 54.6, 59.2, 59.2, 31.5, 22.0], "name": "Andel"}], "symbol": "circle", "symbolSize": 8, "lineStyle": {"width": 2.5, "color": "#060786"}, "itemStyle": {"color": "#060786", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": "rgba(6, 7, 134, 0.12)"}, "label": {"show": false}}, {"name": "Fuenllana", "type": "radar", "radarIndex": 2, "data": [{"value": [19.3, 55.8, 57.8, 74.8, 37.0, 13.8], "name": "Fuenllana"}], "symbol": "circle", "symbolSize": 8, "lineStyle": {"width": 2.5, "color": "#c60027"}, "itemStyle": {"color": "#c60027", "borderColor": "#ffffff", "borderWidth": 2}, "areaStyle": {"color": "rgba(198, 0, 39, 0.12)"}, "label": {"show": false}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'sideBySide';
+      chart._compareFn = function(mode) {
+            var rHide = {splitArea:{show:false}, splitLine:{show:false}, axisLine:{show:false}, axisName:{show:false}};
+            var rShow = function(c, r) {
+              return {center:c, radius:r, splitArea:{show:true, areaStyle:{color:['rgba(0,0,0,0.02)','rgba(0,0,0,0.00)']}}, splitLine:{show:true, lineStyle:{color:'#e8e8e8'}}, axisLine:{show:true, lineStyle:{color:'#e0e0e0'}}, axisName:{show:true}};
+            };
+            var r0, r1, r2, t0 = {show:false}, t1 = {show:false};
+            if (mode === 'todos') {
+              r0 = rShow(['50%','52%'], '68%'); r1 = rHide; r2 = rHide;
+            } else if (mode === 'Andel') {
+              r0 = rHide; r1 = rShow(['50%','52%'], '68%'); r2 = rHide;
+            } else if (mode === 'Fuenllana') {
+              r0 = rHide; r1 = rHide; r2 = rShow(['50%','52%'], '68%');
+            } else {
+              r0 = rHide; r1 = rShow(['27%','55%'], '55%'); r2 = rShow(['73%','55%'], '55%');
+              t0 = {show:true}; t1 = {show:true};
+            }
+            chart.setOption({radar: [r0, r1, r2], title: [t0, t1]});
+        };
+    })();
+    (function() {
+      var el = document.getElementById('scatter_tiempo');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "item", "formatter": function(p) { var labels = ['< 1 h','1-2 h','2-4 h','4-6 h','> 6 h']; return '<b>' + labels[p.data[0]] + '</b> entre semana → <b>' + labels[p.data[1]] + '</b> finde<br>' + p.data[2] + '% del alumnado (' + p.data[3] + ')'; }, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos": true, "Andel": false, "Fuenllana": false}}, "grid": {"left": 10, "right": 20, "top": 20, "bottom": 10, "containLabel": true}, "xAxis": {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "name": "Entre semana", "nameLocation": "middle", "nameGap": 35, "nameTextStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "color": "#4a4a4a", "fontWeight": 600}, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitLine": {"show": true, "lineStyle": {"color": "#f0f0f0", "type": "dashed"}}}, "yAxis": {"type": "category", "data": ["< 1 h", "1-2 h", "2-4 h", "4-6 h", "> 6 h"], "name": "Fin de semana", "nameLocation": "middle", "nameGap": 55, "nameTextStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "color": "#4a4a4a", "fontWeight": 600}, "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "splitLine": {"show": true, "lineStyle": {"color": "#f0f0f0", "type": "dashed"}}}, "series": [{"name": "Todos", "type": "scatter", "data": [[2, 4, 5.1, 36, 10.318471337579618], [1, 2, 22.1, 157, 45.0], [1, 1, 3.7, 26, 7.452229299363057], [2, 3, 14.5, 103, 29.522292993630572], [3, 3, 1.8, 13, 6], [0, 2, 7.3, 52, 14.904458598726114], [0, 0, 3.2, 23, 6.592356687898089], [1, 3, 9.7, 69, 19.777070063694268], [3, 4, 4.6, 33, 9.45859872611465], [2, 2, 7.2, 51, 14.617834394904458], [0, 1, 11.2, 80, 22.929936305732483], [1, 4, 2.1, 15, 6], [3, 1, 0.1, 1, 6], [4, 4, 5.2, 37, 10.605095541401274], [0, 4, 0.7, 5, 6], [0, 3, 1.1, 8, 6], [1, 0, 0.1, 1, 6], [3, 2, 0.1, 1, 6], [2, 1, 0.1, 1, 6]], "symbolSize": function(val) { return val[4]; }, "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderColor": "#2a9d8f", "borderWidth": 2, "opacity": 0.8}, "label": {"show": true, "formatter": function(p) { return p.data[2] >= 5 ? p.data[2] + '%' : ''; }, "fontSize": 11, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333"}}, {"name": "Andel", "type": "scatter", "data": [[2, 4, 7.5, 25, 7.165605095541401], [1, 2, 19.9, 66, 18.9171974522293], [1, 1, 3.3, 11, 6], [2, 3, 12.0, 40, 11.464968152866241], [3, 3, 1.2, 4, 6], [0, 2, 8.1, 27, 7.738853503184713], [0, 0, 3.0, 10, 6], [1, 3, 9.9, 33, 9.45859872611465], [3, 4, 6.0, 20, 6], [2, 2, 5.7, 19, 6], [0, 1, 7.8, 26, 7.452229299363057], [1, 4, 3.9, 13, 6], [3, 1, 0.3, 1, 6], [4, 4, 8.1, 27, 7.738853503184713], [0, 4, 0.6, 2, 6], [0, 3, 1.8, 6, 6], [1, 0, 0.3, 1, 6], [3, 2, 0.3, 1, 6]], "symbolSize": function(val) { return val[4]; }, "itemStyle": {"color": "rgba(6, 7, 134, 0.12)", "borderColor": "#060786", "borderWidth": 2, "opacity": 0.8}, "label": {"show": true, "formatter": function(p) { return p.data[2] >= 5 ? p.data[2] + '%' : ''; }, "fontSize": 11, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333"}}, {"name": "Fuenllana", "type": "scatter", "data": [[2, 2, 8.4, 32, 9.171974522292993], [1, 2, 23.9, 91, 26.0828025477707], [0, 2, 6.6, 25, 7.165605095541401], [3, 3, 2.4, 9, 6], [0, 1, 14.2, 54, 15.477707006369426], [2, 3, 16.6, 63, 18.05732484076433], [3, 4, 3.4, 13, 6], [1, 1, 3.9, 15, 6], [1, 3, 9.5, 36, 10.318471337579618], [2, 4, 2.9, 11, 6], [4, 4, 2.6, 10, 6], [0, 0, 3.4, 13, 6], [0, 4, 0.8, 3, 6], [1, 4, 0.5, 2, 6], [0, 3, 0.5, 2, 6], [2, 1, 0.3, 1, 6]], "symbolSize": function(val) { return val[4]; }, "itemStyle": {"color": "rgba(198, 0, 39, 0.12)", "borderColor": "#c60027", "borderWidth": 2, "opacity": 0.8}, "label": {"show": true, "formatter": function(p) { return p.data[2] >= 5 ? p.data[2] + '%' : ''; }, "fontSize": 11, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'overlay';
+    })();
+    (function() {
+      var el = document.getElementById('cruce_apps');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "item", "formatter": function(p) { if (p.seriesType === 'custom') return ''; return '<b>' + p.seriesName.split('_')[0] + '</b><br>' + (p.seriesName.includes('_alu') ? 'Alumnado: ' : 'Familias: ') + p.data[0] + '%'; }, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos_line": true, "Todos_fam": true, "Todos_alu": true, "Andel_line": false, "Andel_fam": false, "Andel_alu": false, "Fuenllana_line": false, "Fuenllana_fam": false, "Fuenllana_alu": false}}, "grid": {"left": 10, "right": 60, "top": 10, "bottom": 10, "containLabel": true}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "yAxis": {"type": "category", "data": ["WhatsApp", "Instagram", "TikTok", "YouTube", "Videojuegos"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos_line", "type": "custom", "renderItem": function(params, api) {  var d = params.value || api.value();  var start = api.coord([d[0], d[2]]);  var end = api.coord([d[1], d[2]]);  return {    type: 'line',    shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1] },    style: { stroke: '#2a9d8f', lineWidth: 2, opacity: 0.4 }  };}, "data": [[85.8, 91.3, 0], [57.2, 61.4, 1], [54.9, 52.3, 2], [65.7, 81.9, 3], [28.7, 56.0, 4]], "z": 1}, {"name": "Todos_fam", "type": "scatter", "data": [[91.3, 0], [61.4, 1], [52.3, 2], [81.9, 3], [56.0, 4]], "symbolSize": 14, "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "left", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Todos_alu", "type": "scatter", "data": [[85.8, 0], [57.2, 1], [54.9, 2], [65.7, 3], [28.7, 4]], "symbolSize": 14, "itemStyle": {"color": "#2a9d8f", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Andel_line", "type": "custom", "renderItem": function(params, api) {  var d = params.value || api.value();  var start = api.coord([d[0], d[2]]);  var end = api.coord([d[1], d[2]]);  return {    type: 'line',    shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1] },    style: { stroke: '#060786', lineWidth: 2, opacity: 0.4 }  };}, "data": [[81.4, 88.9, 0], [53.8, 59.0, 1], [47.6, 45.8, 2], [74.4, 80.6, 3], [46.2, 82.6, 4]], "z": 1}, {"name": "Andel_fam", "type": "scatter", "data": [[88.9, 0], [59.0, 1], [45.8, 2], [80.6, 3], [82.6, 4]], "symbolSize": 14, "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "left", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Andel_alu", "type": "scatter", "data": [[81.4, 0], [53.8, 1], [47.6, 2], [74.4, 3], [46.2, 4]], "symbolSize": 14, "itemStyle": {"color": "#060786", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Fuenllana_line", "type": "custom", "renderItem": function(params, api) {  var d = params.value || api.value();  var start = api.coord([d[0], d[2]]);  var end = api.coord([d[1], d[2]]);  return {    type: 'line',    shape: { x1: start[0], y1: start[1], x2: end[0], y2: end[1] },    style: { stroke: '#c60027', lineWidth: 2, opacity: 0.4 }  };}, "data": [[89.6, 93.5, 0], [60.2, 63.6, 1], [61.2, 58.4, 2], [58.0, 83.1, 3], [13.3, 31.2, 4]], "z": 1}, {"name": "Fuenllana_fam", "type": "scatter", "data": [[93.5, 0], [63.6, 1], [58.4, 2], [83.1, 3], [31.2, 4]], "symbolSize": 14, "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "left", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Fuenllana_alu", "type": "scatter", "data": [[89.6, 0], [60.2, 1], [61.2, 2], [58.0, 3], [13.3, 4]], "symbolSize": 14, "itemStyle": {"color": "#c60027", "borderColor": "#ffffff", "borderWidth": 2}, "z": 3, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data[0] + '%'; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('cruce_tiempo');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}, "formatter": function(ps) { var lines = []; ps.forEach(function(p) { if (p.seriesName.indexOf('Todos') !== 0) return; var v = Math.abs(p.data); var label = p.seriesName.includes('_alu') ? 'Alumnado' : 'Familias'; lines.push(label + ': ' + v + '%'); }); return '<b>' + ps[0].axisValue + '</b><br>' + lines.join('<br>'); }, "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}}, "legend": {"show": false, "selected": {"Todos_alu": true, "Todos_fam": true, "Andel_alu": false, "Andel_fam": false, "Fuenllana_alu": false, "Fuenllana_fam": false}}, "grid": {"left": 60, "right": 60, "top": 40, "bottom": 20, "containLabel": false}, "yAxis": {"type": "category", "data": ["< 1 h", "1-2 h", "2-3 h+", "> 3 h"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "min": -50, "max": 50, "axisLabel": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "graphic": [{"type": "text", "left": 10, "top": 12, "style": {"text": "← Familias estiman", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#888888"}}, {"type": "text", "right": 10, "top": 12, "style": {"text": "Alumnado declara →", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#888888"}}], "series": [{"name": "Todos_alu", "type": "bar", "stack": "Todos_stack", "data": [23.1, 37.2, 34.5, 5.2], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 28, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Todos_fam", "type": "bar", "data": [-35.8, -0.0, -0.0, -9.0], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [6, 0, 0, 6]}, "barMaxWidth": 28, "label": {"show": true, "position": "left", "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Andel_alu", "type": "bar", "stack": "Andel_stack", "data": [20.8, 37.2, 33.7, 8.2], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 28, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Andel_fam", "type": "bar", "data": [-37.5, -0.0, -0.0, -9.7], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [6, 0, 0, 6]}, "barMaxWidth": 28, "label": {"show": true, "position": "left", "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}, {"name": "Fuenllana_alu", "type": "bar", "stack": "Fuenllana_stack", "data": [25.1, 37.2, 35.1, 2.6], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 28, "label": {"show": true, "position": "right", "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; }, "fontSize": 14, "fontWeight": 600, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#3a3a3a"}}, {"name": "Fuenllana_fam", "type": "bar", "data": [-34.2, -0.0, -0.0, -8.4], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [6, 0, 0, 6]}, "barMaxWidth": 28, "label": {"show": true, "position": "left", "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; }, "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#888888"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+
+  function shouldShow(name, mode) {
+    var isTodos = name.indexOf('Todos') === 0;
+    var isAndel = name.indexOf('Andel') === 0;
+    var isFuenllana = name.indexOf('Fuenllana') === 0;
+    if (mode === 'todos') return isTodos;
+    if (mode === 'ambos') return isAndel || isFuenllana;
+    if (mode === 'Andel') return isAndel;
+    if (mode === 'Fuenllana') return isFuenllana;
+    return false;
+  }
+
+  var LABEL_DEFAULT = '#3a3a3a';
+  var COLOR_ANDEL = '#060786';
+  var COLOR_FUENLLANA = '#c60027';
+
+  function toggleSection(id) {
+    var content = document.getElementById('content-' + id);
+    var header = document.getElementById(id);
+    content.classList.toggle('expanded');
+    header.classList.toggle('expanded');
+    if (content.classList.contains('expanded')) {
+      setTimeout(function() {
+        allCharts.forEach(function(c) { c.resize(); });
+      }, 50);
+    }
+  }
+
+  function applyFilter(mode) {
+    document.querySelectorAll('.school-block').forEach(function(el) {
+      var s = el.dataset.school;
+      var show = (mode === 'todos' && s === 'todos') ||
+                 (mode === 'Andel' && s === 'Andel') ||
+                 (mode === 'Fuenllana' && s === 'Fuenllana') ||
+                 (mode === 'ambos' && (s === 'Andel' || s === 'Fuenllana'));
+      el.style.display = show ? '' : 'none';
+    });
+    allCharts.forEach(function(chart, idx) {
+      var section = chart._el ? chart._el.closest('.chart-section') : null;
+      if (chart._howCompare === 'sideBySide' && chart._compareFn) {
+        chart._compareFn(mode);
+      }
+      if (section && section.style.display === 'none') return;
+      if (section) section.style.display = '';
+      var insightEl = section ? section.querySelector('.chart-insight') : null;
+      if (insightEl) {
+        insightEl.classList.toggle('visible', mode === 'ambos');
+      }
+      var opt = chart.getOption();
+      var seriesUpdate = [];
+      opt.series.forEach(function(s) {
+        var lc = LABEL_DEFAULT;
+        if (mode === 'ambos') {
+          if (s.name.indexOf('Andel') === 0) lc = COLOR_ANDEL;
+          else if (s.name.indexOf('Fuenllana') === 0) lc = COLOR_FUENLLANA;
+        }
+        seriesUpdate.push({ label: { color: lc } });
+      });
+      chart.setOption({ series: seriesUpdate });
+      var names = opt.series.map(function(s) { return s.name; });
+      names.forEach(function(name) {
+        chart.dispatchAction({ type: shouldShow(name, mode) ? 'legendSelect' : 'legendUnSelect', name: name });
+      });
+    });
+    setTimeout(function() {
+      allCharts.forEach(function(c) { c.resize(); });
+    }, 50);
+  }
+
+  var _currentMode = null;
+  function setFilter(mode, skipFade) {
+    document.querySelectorAll('.toggle-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.filter === mode);
+    });
+    if (skipFade || !_currentMode) {
+      _currentMode = mode;
+      applyFilter(mode);
+      return;
+    }
+    _currentMode = mode;
+    var sections = document.querySelectorAll('.chart-section');
+    sections.forEach(function(s) { s.classList.add('fading'); });
+    setTimeout(function() {
+      applyFilter(mode);
+      sections.forEach(function(s) { s.classList.remove('fading'); });
+    }, 200);
+  }
+  setFilter('todos');
+</script>
+</body>
+</html>
