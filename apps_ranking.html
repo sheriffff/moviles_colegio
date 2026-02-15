@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #333333;
+  }
+  .chart-wrapper {
+    width: min(900px, 95vw);
+    max-width: 900px;
+  }
+  .chart-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .chart-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: #4a4a4a;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+  #chart {
+    width: 100%;
+    height: 480px;
+  }
+  .chart-footnote {
+    font-size: 11px;
+    color: #888888;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div class="chart-wrapper">
+  <div class="chart-title">WhatsApp, YouTube y TikTok reinan entre el alumnado</div>
+  <div class="chart-subtitle">Porcentaje, de entre los que tienen móvil, que usa cada aplicación o plataforma de forma habitual</div>
+  <div id="chart"></div>
+  <div class="chart-footnote"></div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'), null, { renderer: 'svg' });
+  var option = {
+  "tooltip": {
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "shadow",
+      "shadowStyle": {
+        "color": "rgba(0,0,0,0.03)"
+      }
+    },
+    "backgroundColor": "rgba(255,255,255,0.96)",
+    "borderColor": "#eee",
+    "borderWidth": 1,
+    "textStyle": {
+      "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+      "color": "#333333",
+      "fontSize": 13
+    }
+  },
+  "legend": {
+    "show": false
+  },
+  "grid": {
+    "left": 10,
+    "right": 60,
+    "top": 10,
+    "bottom": 10,
+    "containLabel": true
+  },
+  "yAxis": {
+    "type": "category",
+    "data": [
+      "Omegle / Azar",
+      "Chat con desconocidos",
+      "Otras apps / RRSS",
+      "Videojuegos (sin chat)",
+      "TikTok",
+      "Instagram",
+      "YouTube",
+      "WhatsApp"
+    ],
+    "axisLabel": {
+      "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+      "fontSize": 13,
+      "color": "#4a4a4a"
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
+    }
+  },
+  "xAxis": {
+    "type": "value",
+    "max": 100,
+    "axisLabel": {
+      "formatter": "{value}%",
+      "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+      "fontSize": 13,
+      "color": "#888888"
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#f0f0f0",
+        "type": "dashed"
+      }
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
+    }
+  },
+  "series": [
+    {
+      "name": "Todos",
+      "type": "bar",
+      "data": [
+        6.1,
+        6.3,
+        16.3,
+        28.7,
+        54.9,
+        57.2,
+        65.7,
+        85.8
+      ],
+      "itemStyle": {
+        "color": "#2a9d8f",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 10,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    },
+    {
+      "name": "Andel",
+      "type": "bar",
+      "data": [
+        8.7,
+        11.3,
+        19.4,
+        46.2,
+        47.6,
+        53.8,
+        74.4,
+        81.4
+      ],
+      "itemStyle": {
+        "color": "#060786",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 10,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    },
+    {
+      "name": "Fuenllana",
+      "type": "bar",
+      "data": [
+        3.7,
+        2.0,
+        13.6,
+        13.3,
+        61.2,
+        60.2,
+        58.0,
+        89.6
+      ],
+      "itemStyle": {
+        "color": "#c60027",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 10,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    }
+  ],
+  "animationDuration": 800,
+  "animationEasing": "cubicOut"
+};
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>

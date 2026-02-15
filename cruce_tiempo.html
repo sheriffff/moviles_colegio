@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #333333;
+  }
+  .chart-wrapper {
+    width: min(900px, 95vw);
+    max-width: 900px;
+  }
+  .chart-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .chart-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: #4a4a4a;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+  #chart {
+    width: 100%;
+    height: 360px;
+  }
+  .chart-footnote {
+    font-size: 11px;
+    color: #888888;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div class="chart-wrapper">
+  <div class="chart-title">Las familias subestiman el tiempo en pantallas</div>
+  <div class="chart-subtitle">Distribución del tiempo diario entre semana: lo que declara el alumnado vs lo que estiman las familias</div>
+  <div id="chart"></div>
+  <div class="chart-footnote">Las escalas del alumnado y familias se han agrupado para hacerlas comparables. 'No lo sé' de familias se excluye.</div>
+</div>
+<script>
+  var chart = echarts.init(document.getElementById('chart'), null, { renderer: 'svg' });
+  var option = {
+  "tooltip": {
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "shadow"
+    },
+    "formatter": function(ps) { var lines = []; ps.forEach(function(p) { if (p.seriesName.indexOf('Todos') !== 0) return; var v = Math.abs(p.data); var label = p.seriesName.includes('_alu') ? 'Alumnado' : 'Familias'; lines.push(label + ': ' + v + '%'); }); return '<b>' + ps[0].axisValue + '</b><br>' + lines.join('<br>'); },
+    "backgroundColor": "rgba(255,255,255,0.96)",
+    "borderColor": "#eee",
+    "borderWidth": 1,
+    "textStyle": {
+      "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+      "color": "#333333",
+      "fontSize": 13
+    }
+  },
+  "legend": {
+    "show": false,
+    "selected": {
+      "Todos_alu": true,
+      "Todos_fam": true,
+      "Andel_alu": false,
+      "Andel_fam": false,
+      "Fuenllana_alu": false,
+      "Fuenllana_fam": false
+    }
+  },
+  "grid": {
+    "left": 60,
+    "right": 60,
+    "top": 40,
+    "bottom": 20,
+    "containLabel": false
+  },
+  "yAxis": {
+    "type": "category",
+    "data": [
+      "< 1 h",
+      "1-2 h",
+      "2-3 h+",
+      "> 3 h"
+    ],
+    "axisLabel": {
+      "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+      "fontSize": 13,
+      "color": "#4a4a4a"
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
+    }
+  },
+  "xAxis": {
+    "type": "value",
+    "min": -50,
+    "max": 50,
+    "axisLabel": {
+      "show": false
+    },
+    "splitLine": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisTick": {
+      "show": false
+    }
+  },
+  "graphic": [
+    {
+      "type": "text",
+      "left": 10,
+      "top": 12,
+      "style": {
+        "text": "← Familias estiman",
+        "fontSize": 13,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fill": "#888888"
+      }
+    },
+    {
+      "type": "text",
+      "right": 10,
+      "top": 12,
+      "style": {
+        "text": "Alumnado declara →",
+        "fontSize": 13,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fill": "#888888"
+      }
+    }
+  ],
+  "series": [
+    {
+      "name": "Todos_alu",
+      "type": "bar",
+      "stack": "Todos_stack",
+      "data": [
+        23.1,
+        37.2,
+        34.5,
+        5.2
+      ],
+      "itemStyle": {
+        "color": "#2a9d8f",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 28,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; },
+        "fontSize": 14,
+        "fontWeight": 600,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "color": "#3a3a3a"
+      }
+    },
+    {
+      "name": "Todos_fam",
+      "type": "bar",
+      "data": [
+        -35.8,
+        -0.0,
+        -0.0,
+        -9.0
+      ],
+      "itemStyle": {
+        "color": "rgba(42, 157, 143, 0.35)",
+        "borderRadius": [
+          6,
+          0,
+          0,
+          6
+        ]
+      },
+      "barMaxWidth": 28,
+      "label": {
+        "show": true,
+        "position": "left",
+        "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; },
+        "fontSize": 12,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "color": "#888888"
+      }
+    },
+    {
+      "name": "Andel_alu",
+      "type": "bar",
+      "stack": "Andel_stack",
+      "data": [
+        20.8,
+        37.2,
+        33.7,
+        8.2
+      ],
+      "itemStyle": {
+        "color": "#060786",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 28,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; },
+        "fontSize": 14,
+        "fontWeight": 600,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "color": "#3a3a3a"
+      }
+    },
+    {
+      "name": "Andel_fam",
+      "type": "bar",
+      "data": [
+        -37.5,
+        -0.0,
+        -0.0,
+        -9.7
+      ],
+      "itemStyle": {
+        "color": "rgba(6, 7, 134, 0.35)",
+        "borderRadius": [
+          6,
+          0,
+          0,
+          6
+        ]
+      },
+      "barMaxWidth": 28,
+      "label": {
+        "show": true,
+        "position": "left",
+        "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; },
+        "fontSize": 12,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "color": "#888888"
+      }
+    },
+    {
+      "name": "Fuenllana_alu",
+      "type": "bar",
+      "stack": "Fuenllana_stack",
+      "data": [
+        25.1,
+        37.2,
+        35.1,
+        2.6
+      ],
+      "itemStyle": {
+        "color": "#c60027",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 28,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": function(p) { return p.data > 0 ? p.data + '%' : ''; },
+        "fontSize": 14,
+        "fontWeight": 600,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "color": "#3a3a3a"
+      }
+    },
+    {
+      "name": "Fuenllana_fam",
+      "type": "bar",
+      "data": [
+        -34.2,
+        -0.0,
+        -0.0,
+        -8.4
+      ],
+      "itemStyle": {
+        "color": "rgba(198, 0, 39, 0.35)",
+        "borderRadius": [
+          6,
+          0,
+          0,
+          6
+        ]
+      },
+      "barMaxWidth": 28,
+      "label": {
+        "show": true,
+        "position": "left",
+        "formatter": function(p) { return Math.abs(p.data) > 0 ? Math.abs(p.data) + '%' : ''; },
+        "fontSize": 12,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "color": "#888888"
+      }
+    }
+  ],
+  "animationDuration": 800,
+  "animationEasing": "cubicOut"
+};
+  chart.setOption(option);
+  window.addEventListener('resize', function() { chart.resize(); });
+</script>
+</body>
+</html>
