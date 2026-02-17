@@ -423,9 +423,9 @@
 <div class="page-content">
   <section class="chart-section">
     <div class="chart-main">
-      <div class="chart-title">La mayoría querría el móvil en torno a 3º ESO</div>
-      <div class="chart-subtitle">¿Cuándo te gustaría tener móvil propio? (alumnado sin móvil)</div>
-      <div class="chart-container" id="chart" style="height:420px"></div>
+      <div class="chart-title">¿Coinciden familias y alumnado en los efectos del móvil?</div>
+      <div class="chart-subtitle">% que percibe deterioro en cada dimensión — barra sólida: alumnado, barra suave: familias</div>
+      <div class="chart-container" id="chart" style="height:340px"></div>
       
     </div>
   </section>
@@ -456,48 +456,97 @@
     }
   },
   "legend": {
-    "show": false
+    "show": false,
+    "selected": {
+      "Todos — Alumnado": true,
+      "Todos — Familias": true,
+      "Andel — Alumnado": false,
+      "Andel — Familias": false,
+      "Fuenllana — Alumnado": false,
+      "Fuenllana — Familias": false
+    }
   },
+  "graphic": [
+    {
+      "type": "rect",
+      "left": 0,
+      "top": 8,
+      "shape": {
+        "width": 16,
+        "height": 16,
+        "r": 3
+      },
+      "style": {
+        "fill": "#2a9d8f"
+      }
+    },
+    {
+      "type": "text",
+      "left": 22,
+      "top": 9,
+      "style": {
+        "text": "Alumnado",
+        "fontSize": 13,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fill": "#4a4a4a"
+      }
+    },
+    {
+      "type": "rect",
+      "left": 115,
+      "top": 8,
+      "shape": {
+        "width": 16,
+        "height": 16,
+        "r": 3
+      },
+      "style": {
+        "fill": "rgba(42, 157, 143, 0.35)"
+      }
+    },
+    {
+      "type": "text",
+      "left": 137,
+      "top": 9,
+      "style": {
+        "text": "Familias",
+        "fontSize": 13,
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fill": "#4a4a4a"
+      }
+    }
+  ],
   "grid": {
     "left": 10,
-    "right": 20,
+    "right": 60,
     "top": 40,
-    "bottom": 20,
+    "bottom": 10,
     "containLabel": true
   },
-  "xAxis": {
+  "yAxis": {
     "type": "category",
     "data": [
-      "4º Prim",
-      "5º Prim",
-      "6º Prim",
-      "1º ESO",
-      "2º ESO",
-      "3º ESO",
-      "4º ESO",
-      "1º Bach",
-      "2º Bach",
-      "Mayor edad",
-      "1º Grado Medio",
-      "2º Grado Medio"
+      "Relaciones sociales",
+      "Rendimiento académico",
+      "Comunicación familiar",
+      "Lectura"
     ],
     "axisLabel": {
       "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
-      "fontSize": 12,
+      "fontSize": 13,
       "color": "#4a4a4a",
-      "rotate": 25
+      "width": 180,
+      "overflow": "break"
     },
     "axisLine": {
       "show": false
     },
     "axisTick": {
       "show": false
-    },
-    "boundaryGap": false
+    }
   },
-  "yAxis": {
+  "xAxis": {
     "type": "value",
-    "max": 30,
     "axisLabel": {
       "formatter": "{value}%",
       "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
@@ -519,174 +568,183 @@
   },
   "series": [
     {
-      "name": "Todos",
-      "type": "line",
+      "name": "Todos — Alumnado",
+      "type": "bar",
       "data": [
-        2.0,
-        1.2,
-        3.4,
-        12.1,
-        16.9,
-        19.0,
-        14.1,
-        8.3,
-        6.5,
-        7.5,
-        0.4,
-        0.2
+        3.7,
+        12.5,
+        8.5,
+        25.8
       ],
-      "symbol": "circle",
-      "symbolSize": 10,
-      "lineStyle": {
-        "width": 3,
-        "color": "#2a9d8f"
-      },
       "itemStyle": {
         "color": "#2a9d8f",
-        "borderWidth": 2,
-        "borderColor": "#fff"
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
       },
+      "barMaxWidth": 14,
+      "barGap": "30%",
       "label": {
         "show": true,
-        "position": "top",
+        "position": "right",
         "formatter": "{c}%",
         "fontSize": 14,
         "color": "#3a3a3a",
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
         "fontWeight": 600
-      },
-      "areaStyle": {
-        "color": {
-          "type": "linear",
-          "x": 0,
-          "y": 0,
-          "x2": 0,
-          "y2": 1,
-          "colorStops": [
-            {
-              "offset": 0,
-              "color": "rgba(42,157,143,0.18)"
-            },
-            {
-              "offset": 1,
-              "color": "rgba(42,157,143,0.02)"
-            }
-          ]
-        }
       }
     },
     {
-      "name": "Andel",
-      "type": "line",
+      "name": "Todos — Familias",
+      "type": "bar",
       "data": [
-        2.9,
-        0.8,
-        1.6,
-        15.5,
-        18.0,
-        15.9,
-        13.9,
-        11.0,
-        4.9,
-        8.6,
-        0.8,
-        0.4
+        6.2,
+        14.9,
+        20.1,
+        37.5
       ],
-      "symbol": "circle",
-      "symbolSize": 10,
-      "lineStyle": {
-        "width": 3,
-        "color": "#060786"
+      "itemStyle": {
+        "color": "rgba(42, 157, 143, 0.35)",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
       },
+      "barMaxWidth": 14,
+      "barGap": "30%",
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    },
+    {
+      "name": "Andel — Alumnado",
+      "type": "bar",
+      "data": [
+        4.8,
+        13.9,
+        7.9,
+        28.3
+      ],
       "itemStyle": {
         "color": "#060786",
-        "borderWidth": 2,
-        "borderColor": "#fff"
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
       },
+      "barMaxWidth": 14,
+      "barGap": "30%",
       "label": {
         "show": true,
-        "position": "top",
+        "position": "right",
         "formatter": "{c}%",
         "fontSize": 14,
         "color": "#3a3a3a",
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
         "fontWeight": 600
-      },
-      "areaStyle": {
-        "color": {
-          "type": "linear",
-          "x": 0,
-          "y": 0,
-          "x2": 0,
-          "y2": 1,
-          "colorStops": [
-            {
-              "offset": 0,
-              "color": "rgba(6,7,134,0.18)"
-            },
-            {
-              "offset": 1,
-              "color": "rgba(6,7,134,0.02)"
-            }
-          ]
-        }
       }
     },
     {
-      "name": "Fuenllana",
-      "type": "line",
+      "name": "Andel — Familias",
+      "type": "bar",
       "data": [
-        1.2,
-        1.6,
-        5.2,
-        8.8,
-        15.9,
-        21.9,
-        14.3,
-        5.6,
-        8.0,
-        6.4,
-        0,
-        0
+        5.7,
+        16.1,
+        22.9,
+        43.4
       ],
-      "symbol": "circle",
-      "symbolSize": 10,
-      "lineStyle": {
-        "width": 3,
-        "color": "#c60027"
-      },
       "itemStyle": {
-        "color": "#c60027",
-        "borderWidth": 2,
-        "borderColor": "#fff"
+        "color": "rgba(6, 7, 134, 0.35)",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
       },
+      "barMaxWidth": 14,
+      "barGap": "30%",
       "label": {
         "show": true,
-        "position": "top",
+        "position": "right",
         "formatter": "{c}%",
         "fontSize": 14,
         "color": "#3a3a3a",
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
         "fontWeight": 600
+      }
+    },
+    {
+      "name": "Fuenllana — Alumnado",
+      "type": "bar",
+      "data": [
+        2.7,
+        11.2,
+        8.9,
+        23.5
+      ],
+      "itemStyle": {
+        "color": "#c60027",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
       },
-      "areaStyle": {
-        "color": {
-          "type": "linear",
-          "x": 0,
-          "y": 0,
-          "x2": 0,
-          "y2": 1,
-          "colorStops": [
-            {
-              "offset": 0,
-              "color": "rgba(198,0,39,0.18)"
-            },
-            {
-              "offset": 1,
-              "color": "rgba(198,0,39,0.02)"
-            }
-          ]
-        }
+      "barMaxWidth": 14,
+      "barGap": "30%",
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    },
+    {
+      "name": "Fuenllana — Familias",
+      "type": "bar",
+      "data": [
+        6.7,
+        13.8,
+        17.5,
+        32.0
+      ],
+      "itemStyle": {
+        "color": "rgba(198, 0, 39, 0.35)",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 14,
+      "barGap": "30%",
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
       }
     }
   ],
