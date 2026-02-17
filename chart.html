@@ -369,9 +369,9 @@
 <div class="page-content">
   <section class="chart-section">
     <div class="chart-main">
-      <div class="chart-title">¿Qué opinan las familias de la normativa del colegio sobre el móvil?</div>
-      <div class="chart-subtitle">Percepción de la normativa del colegio sobre el uso del móvil</div>
-      <div class="chart-container" id="chart" style="height:180px"></div>
+      <div class="chart-title">¿Están preparados los profesores para acompañar digitalmente?</div>
+      <div class="chart-subtitle">Valoración de su formación actual y ámbitos en los que quieren formarse</div>
+      <div class="chart-container" id="chart" style="height:460px"></div>
       
     </div>
   </section>
@@ -395,25 +395,27 @@
       "fontSize": 13
     },
     "formatter": function(p) {
-          var seg = p.seriesName.split('_').slice(1).join('_');
+          var parts = p.seriesName.split('_');
+          var seg = parts.slice(1).join('_');
+          if (seg === 'ranking') return '<b>' + p.name + '</b>: <b>' + p.value + '%</b>';
           return '<b>' + seg + '</b>: <b>' + p.value + '%</b>';
         }
   },
   "legend": {
     "show": false,
     "selected": {
-      "Todos_Adecuada": true,
-      "Todos_No la conozco bien": true,
-      "Todos_Demasiado permisiva": true,
-      "Todos_Demasiado estricta": true,
-      "Andel_Adecuada": false,
-      "Andel_No la conozco bien": false,
-      "Andel_Demasiado permisiva": false,
-      "Andel_Demasiado estricta": false,
-      "Fuenllana_Adecuada": false,
-      "Fuenllana_No la conozco bien": false,
-      "Fuenllana_Demasiado permisiva": false,
-      "Fuenllana_Demasiado estricta": false
+      "Todos_Poco formado": true,
+      "Todos_Básica pero insuficiente": true,
+      "Todos_Bien formado": true,
+      "Andel_Poco formado": false,
+      "Andel_Básica pero insuficiente": false,
+      "Andel_Bien formado": false,
+      "Fuenllana_Poco formado": false,
+      "Fuenllana_Básica pero insuficiente": false,
+      "Fuenllana_Bien formado": false,
+      "Todos_ranking": true,
+      "Andel_ranking": false,
+      "Fuenllana_ranking": false
     }
   },
   "graphic": [
@@ -427,7 +429,7 @@
         "r": 3
       },
       "style": {
-        "fill": "#2a9d8f"
+        "fill": "#e76f51"
       }
     },
     {
@@ -435,7 +437,7 @@
       "left": 22,
       "top": 9,
       "style": {
-        "text": "Adecuada",
+        "text": "Poco formado",
         "fontSize": 12,
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
         "fill": "#4a4a4a"
@@ -443,31 +445,7 @@
     },
     {
       "type": "rect",
-      "left": 96,
-      "top": 8,
-      "shape": {
-        "width": 16,
-        "height": 16,
-        "r": 3
-      },
-      "style": {
-        "fill": "#d4d4d4"
-      }
-    },
-    {
-      "type": "text",
-      "left": 118,
-      "top": 9,
-      "style": {
-        "text": "No la conozco bien",
-        "fontSize": 12,
-        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
-        "fill": "#4a4a4a"
-      }
-    },
-    {
-      "type": "rect",
-      "left": 262,
+      "left": 118.0,
       "top": 8,
       "shape": {
         "width": 16,
@@ -480,10 +458,10 @@
     },
     {
       "type": "text",
-      "left": 284,
+      "left": 140.0,
       "top": 9,
       "style": {
-        "text": "Demasiado permisiva",
+        "text": "Básica pero insuficiente",
         "fontSize": 12,
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
         "fill": "#4a4a4a"
@@ -491,7 +469,7 @@
     },
     {
       "type": "rect",
-      "left": 435,
+      "left": 314.0,
       "top": 8,
       "shape": {
         "width": 16,
@@ -499,71 +477,147 @@
         "r": 3
       },
       "style": {
-        "fill": "#e76f51"
+        "fill": "#2a9d8f"
       }
     },
     {
       "type": "text",
-      "left": 457,
+      "left": 336.0,
       "top": 9,
       "style": {
-        "text": "Demasiado estricta",
+        "text": "Bien formado",
         "fontSize": 12,
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
         "fill": "#4a4a4a"
       }
+    },
+    {
+      "type": "text",
+      "left": 0,
+      "top": 105,
+      "style": {
+        "text": "¿En qué ámbitos quieren formarse?",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fill": "#333333"
+      }
     }
   ],
-  "grid": {
-    "left": 10,
-    "right": 0,
-    "top": 40,
-    "bottom": 10,
-    "containLabel": true
-  },
-  "yAxis": {
-    "type": "category",
-    "data": [
-      "Todas las familias"
-    ],
-    "axisLabel": {
-      "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
-      "fontSize": 14,
-      "color": "#4a4a4a"
+  "grid": [
+    {
+      "left": 10,
+      "right": 0,
+      "top": 40,
+      "bottom": 370,
+      "containLabel": true
     },
-    "axisLine": {
-      "show": false
-    },
-    "axisTick": {
-      "show": false
+    {
+      "left": 10,
+      "right": 60,
+      "top": 130,
+      "bottom": 10,
+      "containLabel": true
     }
-  },
-  "xAxis": {
-    "type": "value",
-    "max": 100,
-    "axisLabel": {
-      "show": false
+  ],
+  "yAxis": [
+    {
+      "type": "category",
+      "gridIndex": 0,
+      "data": [
+        "Valoración"
+      ],
+      "axisLabel": {
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontSize": 14,
+        "color": "#4a4a4a"
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisTick": {
+        "show": false
+      }
     },
-    "splitLine": {
-      "show": false
-    },
-    "axisLine": {
-      "show": false
-    },
-    "axisTick": {
-      "show": false
+    {
+      "type": "category",
+      "gridIndex": 1,
+      "data": [
+        "Videojuegos y comunidades",
+        "Riesgos digitales",
+        "Privacidad y control parental",
+        "RRSS y dinámicas adolescentes",
+        "Uso educativo equilibrado"
+      ],
+      "axisLabel": {
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontSize": 13,
+        "color": "#4a4a4a",
+        "width": 200,
+        "overflow": "break"
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisTick": {
+        "show": false
+      }
     }
-  },
+  ],
+  "xAxis": [
+    {
+      "type": "value",
+      "gridIndex": 0,
+      "max": 100,
+      "axisLabel": {
+        "show": false
+      },
+      "splitLine": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisTick": {
+        "show": false
+      }
+    },
+    {
+      "type": "value",
+      "gridIndex": 1,
+      "max": 100,
+      "axisLabel": {
+        "formatter": "{value}%",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontSize": 13,
+        "color": "#888888"
+      },
+      "splitLine": {
+        "lineStyle": {
+          "color": "#f0f0f0",
+          "type": "dashed"
+        }
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisTick": {
+        "show": false
+      }
+    }
+  ],
   "series": [
     {
-      "name": "Todos_Adecuada",
+      "name": "Todos_Poco formado",
       "type": "bar",
       "stack": "Todos",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        70.0
+        7.8
       ],
       "itemStyle": {
-        "color": "#2a9d8f",
+        "color": "#e76f51",
         "borderRadius": [
           4,
           0,
@@ -575,7 +629,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -583,38 +637,13 @@
       }
     },
     {
-      "name": "Todos_No la conozco bien",
+      "name": "Todos_Básica pero insuficiente",
       "type": "bar",
       "stack": "Todos",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        21.4
-      ],
-      "itemStyle": {
-        "color": "#d4d4d4",
-        "borderRadius": [
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      "barMaxWidth": 48,
-      "label": {
-        "show": true,
-        "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
-        "fontSize": 13,
-        "fontWeight": "bold",
-        "color": "#fff",
-        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"
-      }
-    },
-    {
-      "name": "Todos_Demasiado permisiva",
-      "type": "bar",
-      "stack": "Todos",
-      "data": [
-        7.5
+        49.5
       ],
       "itemStyle": {
         "color": "#e8963e",
@@ -629,7 +658,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -637,14 +666,16 @@
       }
     },
     {
-      "name": "Todos_Demasiado estricta",
+      "name": "Todos_Bien formado",
       "type": "bar",
       "stack": "Todos",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        1.1
+        42.7
       ],
       "itemStyle": {
-        "color": "#e76f51",
+        "color": "#2a9d8f",
         "borderRadius": [
           0,
           4,
@@ -656,7 +687,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -664,14 +695,16 @@
       }
     },
     {
-      "name": "Andel_Adecuada",
+      "name": "Andel_Poco formado",
       "type": "bar",
       "stack": "Andel",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        75.1
+        10.9
       ],
       "itemStyle": {
-        "color": "#2a9d8f",
+        "color": "#e76f51",
         "borderRadius": [
           4,
           0,
@@ -683,7 +716,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -691,38 +724,13 @@
       }
     },
     {
-      "name": "Andel_No la conozco bien",
+      "name": "Andel_Básica pero insuficiente",
       "type": "bar",
       "stack": "Andel",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        16.4
-      ],
-      "itemStyle": {
-        "color": "#d4d4d4",
-        "borderRadius": [
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      "barMaxWidth": 48,
-      "label": {
-        "show": true,
-        "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
-        "fontSize": 13,
-        "fontWeight": "bold",
-        "color": "#fff",
-        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"
-      }
-    },
-    {
-      "name": "Andel_Demasiado permisiva",
-      "type": "bar",
-      "stack": "Andel",
-      "data": [
-        7.9
+        32.6
       ],
       "itemStyle": {
         "color": "#e8963e",
@@ -737,7 +745,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -745,14 +753,16 @@
       }
     },
     {
-      "name": "Andel_Demasiado estricta",
+      "name": "Andel_Bien formado",
       "type": "bar",
       "stack": "Andel",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        0.7
+        56.5
       ],
       "itemStyle": {
-        "color": "#e76f51",
+        "color": "#2a9d8f",
         "borderRadius": [
           0,
           4,
@@ -764,7 +774,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -772,14 +782,16 @@
       }
     },
     {
-      "name": "Fuenllana_Adecuada",
+      "name": "Fuenllana_Poco formado",
       "type": "bar",
       "stack": "Fuenllana",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        66.3
+        5.3
       ],
       "itemStyle": {
-        "color": "#2a9d8f",
+        "color": "#e76f51",
         "borderRadius": [
           4,
           0,
@@ -791,7 +803,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -799,38 +811,13 @@
       }
     },
     {
-      "name": "Fuenllana_No la conozco bien",
+      "name": "Fuenllana_Básica pero insuficiente",
       "type": "bar",
       "stack": "Fuenllana",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        25.1
-      ],
-      "itemStyle": {
-        "color": "#d4d4d4",
-        "borderRadius": [
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      "barMaxWidth": 48,
-      "label": {
-        "show": true,
-        "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
-        "fontSize": 13,
-        "fontWeight": "bold",
-        "color": "#fff",
-        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"
-      }
-    },
-    {
-      "name": "Fuenllana_Demasiado permisiva",
-      "type": "bar",
-      "stack": "Fuenllana",
-      "data": [
-        7.2
+        63.2
       ],
       "itemStyle": {
         "color": "#e8963e",
@@ -845,7 +832,7 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
@@ -853,14 +840,16 @@
       }
     },
     {
-      "name": "Fuenllana_Demasiado estricta",
+      "name": "Fuenllana_Bien formado",
       "type": "bar",
       "stack": "Fuenllana",
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
       "data": [
-        1.4
+        31.6
       ],
       "itemStyle": {
-        "color": "#e76f51",
+        "color": "#2a9d8f",
         "borderRadius": [
           0,
           4,
@@ -872,11 +861,107 @@
       "label": {
         "show": true,
         "position": "inside",
-        "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; },
+        "formatter": function(p) { return p.data >= 5 ? p.data + '%' : ''; },
         "fontSize": 13,
         "fontWeight": "bold",
         "color": "#fff",
         "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"
+      }
+    },
+    {
+      "name": "Todos_ranking",
+      "type": "bar",
+      "xAxisIndex": 1,
+      "yAxisIndex": 1,
+      "data": [
+        36.0,
+        45.0,
+        48.0,
+        51.0,
+        62.0
+      ],
+      "itemStyle": {
+        "color": "#2a9d8f",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 10,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    },
+    {
+      "name": "Andel_ranking",
+      "type": "bar",
+      "xAxisIndex": 1,
+      "yAxisIndex": 1,
+      "data": [
+        37.0,
+        41.3,
+        43.5,
+        45.7,
+        56.5
+      ],
+      "itemStyle": {
+        "color": "#060786",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 10,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
+      }
+    },
+    {
+      "name": "Fuenllana_ranking",
+      "type": "bar",
+      "xAxisIndex": 1,
+      "yAxisIndex": 1,
+      "data": [
+        35.2,
+        48.1,
+        51.9,
+        55.6,
+        66.7
+      ],
+      "itemStyle": {
+        "color": "#c60027",
+        "borderRadius": [
+          0,
+          6,
+          6,
+          0
+        ]
+      },
+      "barMaxWidth": 10,
+      "label": {
+        "show": true,
+        "position": "right",
+        "formatter": "{c}%",
+        "fontSize": 14,
+        "color": "#3a3a3a",
+        "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif",
+        "fontWeight": 600
       }
     }
   ],
