@@ -334,87 +334,10 @@
     line-height: 1.3;
   }
 
-  #lock-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-  #lock-screen.hidden { display: none; }
-  #lock-screen h2 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #333333;
-  }
-  #lock-screen input {
-    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
-    font-size: 18px;
-    padding: 12px 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    outline: none;
-    width: 280px;
-    text-align: center;
-    transition: border-color 0.2s;
-  }
-  #lock-screen input:focus {
-    border-color: #2a9d8f;
-  }
-  #lock-screen input.error {
-    border-color: #c60027;
-    animation: shake 0.4s ease;
-  }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-  }
-  .lock-btn {
-    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
-    font-size: 16px;
-    padding: 10px 36px;
-    border: none;
-    border-radius: 10px;
-    background: #2a9d8f;
-    color: #fff;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  .lock-btn:hover {
-    opacity: 0.85;
-  }
 
 </style>
 </head>
 <body>
-
-<div id="lock-screen">
-  <h2>Acceso restringido</h2>
-  <input type="password" id="lock-input" placeholder="Contraseña" autofocus
-    onkeydown="if(event.key==='Enter')checkPw()">
-  <button class="lock-btn" onclick="checkPw()">Entrar</button>
-</div>
-<script>
-  function checkPw() {
-    var input = document.getElementById('lock-input');
-    if (input.value === 'elena2026' || input.value === 'e') {
-      document.getElementById('lock-screen').classList.add('hidden');
-      sessionStorage.setItem('unlocked', '1');
-    } else {
-      input.classList.add('error');
-      input.value = '';
-      setTimeout(function() { input.classList.remove('error'); }, 500);
-    }
-  }
-  if (sessionStorage.getItem('unlocked') === '1') {
-    document.getElementById('lock-screen').classList.add('hidden');
-  }
-</script>
 
 <div class="toggle-bar">
   <div class="toggle-bar-title">Estudio sobre el uso del móvil</div>
@@ -975,9 +898,9 @@
           
           <div class="chart-container" id="experiencias_negativas" style="height:280px"></div>
           
-        </div><div class='chart-comment'><p>Los insultos o peleas en grupos de WhatsApp son la experiencia negativa más común (56.1%)</p></div>
+        </div><div class='chart-comment'><p>Los insultos o peleas en grupos de WhatsApp son la experiencia negativa más común (56.1%). El contacto con desconocidos es mayor en chicos, principalmente por los videojuegos online</p></div>
         <div class="chart-insight">
-          <div class="insight-block"><div class="insight-number" style="color: #060786">28%</div><div class="insight-label">más diferencia en Pornografía o contenido violento: más chicos que chicas</div></div>
+          <div class="insight-block"><div class="insight-number" style="color: #060786">×7.9</div><div class="insight-label">más chicos en «Pornografía o contenido violento»</div></div><div class="insight-block"><div class="insight-number" style="color: #060786">×2.6</div><div class="insight-label">más chicos en «Contacto con desconocidos»</div></div>
         </div>
       </section>
       <section class="chart-section">
@@ -1001,22 +924,59 @@
         </div><div class='chart-comment'><p>La preocupación está justificada: el 64.0% del alumnado ha vivido al menos una experiencia negativa con el móvil</p></div>
       </section>
       </div>
+      <div class="section-header" id="s7" onclick="toggleSection('s7')">
+        <div class="section-info">
+          <div class="section-number">Sección 7</div>
+          <div class="section-name">Mirando al futuro: arrepentimiento y cambio</div>
+        </div>
+        <span class="section-arrow">›</span>
+      </div>
+      <div class="section-content" id="content-s7">
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>G7.1</div>
+          <div class="chart-title">¿Se arrepienten de haber dado el móvil cuando lo hicieron?</div>
+          <div class="chart-subtitle">% que hubiera preferido esperar más — barra sólida: alumnado, barra suave: familias</div>
+          
+          <div class="chart-container" id="arrepentimiento" style="height:340px"></div>
+          
+        </div><div class='chart-comment'><p>En Bachillerato, el 19.5% del alumnado y el 60.8% de las familias desearían haber esperado más</p></div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>G7.2</div>
+          <div class="chart-title">¿Cuándo dar el primer smartphone?</div>
+          <div class="chart-subtitle">% acumulado que ya tiene / daría el móvil en cada curso — línea discontinua: realidad, continuas: ideal</div>
+          
+          <div class="chart-container" id="edad_ideal" style="height:420px"></div>
+          
+        </div><div class='chart-comment'><p>El 50% ya tiene móvil en 1ºESO, pero la mayoría de alumnado, familias y profesores recomiendan esperar hasta 2ºESO o más</p></div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>G7.3</div>
+          <div class="chart-title">¿Querrían usar menos el móvil?</div>
+          <div class="chart-subtitle">'Si pudieras reducir tu tiempo de pantalla a la mitad, ¿cómo te sentirías?' — por grupo de curso</div>
+          
+          <div class="chart-container" id="reducir_tiempo" style="height:340px"></div>
+          
+        </div><div class='chart-comment'><p>La mayoría se sentiría mejor con menos pantalla, y la proporción crece con la edad (hasta 53.3% en Bachillerato)</p></div>
+      </section>
+      <section class="chart-section">
+        <div class="chart-main">
+          <div class='chart-code'>G7.4</div>
+          <div class="chart-title">¿Y si nadie tuviera smartphone?</div>
+          <div class="chart-subtitle">'Imagina que en tu clase nadie tuviera smartphone con internet, ¿cómo te sentirías?'</div>
+          
+          <div class="chart-container" id="sin_smartphone" style="height:180px"></div>
+          
+        </div><div class='chart-comment'><p>Un 26.5% vería positivo no tener smartphone, y solo un 11.2% dice que lo necesitaría igualmente</p></div>
+      </section>
+      </div>
 
   <div class="coming-soon">
     <div class="coming-soon-title">Coming soon...</div>
     <div class="coming-soon-subtitle">Secciones en preparación</div>
-
-    <div class="coming-section">
-      <div class="coming-section-name">S7. Mirando al futuro: arrepentimiento y cambio</div>
-      <ul>
-        <li>Alumnado: «si me lo hubieran dado más tarde»</li>
-        <li>Familias: «si decidiéramos hoy»</li>
-        <li>Alumnado como futuros padres: ¿cuándo darían smartphone?</li>
-        <li>«Si pudieras reducir tu tiempo a la mitad»</li>
-        <li>Edad ideal según alumnado vs familias vs profesorado</li>
-        <li>«Imagina que nadie tiene smartphone»: respuestas del alumnado</li>
-      </ul>
-    </div>
 
     <div class="coming-section">
       <div class="coming-section-name">S8. Presión social y coordinación entre familias</div>
@@ -1513,6 +1473,64 @@
           var seg = p.seriesName.split('_').slice(1).join('_');
           return '<b>' + p.name + '</b><br/>' + seg + ': <b>' + p.value + '%</b>';
         }}, "legend": {"show": false, "selected": {"Todos_Alto / Varias": true, "Todos_Medio / Una": true, "Todos_Bajo / Ninguna": true, "Andel_Alto / Varias": false, "Andel_Medio / Una": false, "Andel_Bajo / Ninguna": false, "Fuenllana_Alto / Varias": false, "Fuenllana_Medio / Una": false, "Fuenllana_Bajo / Ninguna": false}}, "graphic": [{"type": "rect", "left": 0, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e76f51"}}, {"type": "text", "left": 22, "top": 9, "style": {"text": "Alto / Varias", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 139.5, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e8963e"}}, {"type": "text", "left": 161.5, "top": 9, "style": {"text": "Medio / Una", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 264.0, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#2a9d8f"}}, {"type": "text", "left": 286.0, "top": 9, "style": {"text": "Bajo / Ninguna", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}], "grid": {"left": 10, "right": 0, "top": 40, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Familias", "Alumnado"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos_Alto / Varias", "type": "bar", "stack": "Todos", "data": [{"value": 78.2, "itemStyle": {"color": "rgba(231,111,81,0.4)"}}, 25.7], "itemStyle": {"color": "#e76f51", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Medio / Una", "type": "bar", "stack": "Todos", "data": [{"value": 12.8, "itemStyle": {"color": "rgba(232,150,62,0.4)"}}, 38.3], "itemStyle": {"color": "#e8963e", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Bajo / Ninguna", "type": "bar", "stack": "Todos", "data": [{"value": 9.1, "itemStyle": {"color": "rgba(42,157,143,0.4)"}}, 36.0], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Alto / Varias", "type": "bar", "stack": "Andel", "data": [{"value": 75.0, "itemStyle": {"color": "rgba(231,111,81,0.4)"}}, 39.9], "itemStyle": {"color": "#e76f51", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Medio / Una", "type": "bar", "stack": "Andel", "data": [{"value": 15.3, "itemStyle": {"color": "rgba(232,150,62,0.4)"}}, 34.4], "itemStyle": {"color": "#e8963e", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Bajo / Ninguna", "type": "bar", "stack": "Andel", "data": [{"value": 9.7, "itemStyle": {"color": "rgba(42,157,143,0.4)"}}, 25.7], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Alto / Varias", "type": "bar", "stack": "Fuenllana", "data": [{"value": 81.2, "itemStyle": {"color": "rgba(231,111,81,0.4)"}}, 13.1], "itemStyle": {"color": "#e76f51", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Medio / Una", "type": "bar", "stack": "Fuenllana", "data": [{"value": 10.4, "itemStyle": {"color": "rgba(232,150,62,0.4)"}}, 41.7], "itemStyle": {"color": "#e8963e", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Bajo / Ninguna", "type": "bar", "stack": "Fuenllana", "data": [{"value": 8.4, "itemStyle": {"color": "rgba(42,157,143,0.4)"}}, 45.2], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.value >= 8 ? p.value + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('arrepentimiento');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}}, "legend": {"show": false, "selected": {"Todos — Alumnado": true, "Todos — Familias": true, "Andel — Alumnado": false, "Andel — Familias": false, "Fuenllana — Alumnado": false, "Fuenllana — Familias": false}}, "graphic": [{"type": "rect", "left": 0, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#2a9d8f"}}, {"type": "text", "left": 22, "top": 9, "style": {"text": "Alumnado", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 115, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "rgba(42, 157, 143, 0.35)"}}, {"type": "text", "left": 137, "top": 9, "style": {"text": "Familias", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}], "grid": {"left": 10, "right": 60, "top": 40, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos — Alumnado", "type": "bar", "data": [18.9, 31.1, 14.5, 12.0, 19.5], "itemStyle": {"color": "#2a9d8f", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 14, "barGap": "30%", "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Todos — Familias", "type": "bar", "data": [28.6, 57.1, 67.4, 67.4, 60.8], "itemStyle": {"color": "rgba(42, 157, 143, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 14, "barGap": "30%", "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel — Alumnado", "type": "bar", "data": [28.6, 25.0, 14.6, 12.4, 23.4], "itemStyle": {"color": "#060786", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 14, "barGap": "30%", "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Andel — Familias", "type": "bar", "data": [25.0, 33.3, 78.9, 69.1, 64.9], "itemStyle": {"color": "rgba(6, 7, 134, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 14, "barGap": "30%", "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana — Alumnado", "type": "bar", "data": [6.2, 38.2, 14.5, 11.7, 16.0], "itemStyle": {"color": "#c60027", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 14, "barGap": "30%", "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}, {"name": "Fuenllana — Familias", "type": "bar", "data": [33.3, 75.0, 59.3, 66.2, 55.0], "itemStyle": {"color": "rgba(198, 0, 39, 0.35)", "borderRadius": [0, 6, 6, 0]}, "barMaxWidth": 14, "barGap": "30%", "label": {"show": true, "position": "right", "formatter": "{c}%", "fontSize": 14, "color": "#3a3a3a", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontWeight": 600}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('edad_ideal');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "axis", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "axisPointer": {"type": "shadow", "shadowStyle": {"color": "rgba(0,0,0,0.03)"}}, "formatter": function(params) {
+          var tip = '<b>' + params[0].axisValueLabel + '</b>';
+          for (var i = 0; i < params.length; i++) {
+            var p = params[i];
+            var label = p.seriesName.split(' — ').pop();
+            tip += '<br/>' + p.marker + ' ' + label + ': <b>' + p.value + '%</b>';
+          }
+          return tip;
+        }}, "legend": {"show": false, "selected": {"Todos — Lo recibieron": true, "Todos — Alumnado daría": true, "Todos — Familias darían": true, "Todos — Profesores darían": true, "Andel — Lo recibieron": false, "Andel — Alumnado daría": false, "Andel — Familias darían": false, "Andel — Profesores darían": false, "Fuenllana — Lo recibieron": false, "Fuenllana — Alumnado daría": false, "Fuenllana — Familias darían": false, "Fuenllana — Profesores darían": false}}, "graphic": [{"type": "rect", "left": 0, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#aaa"}}, {"type": "text", "left": 22, "top": 9, "style": {"text": "Lo recibieron", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 133, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#2a9d8f"}}, {"type": "text", "left": 155, "top": 9, "style": {"text": "Alumnado daría", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 273, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e8963e"}}, {"type": "text", "left": 295, "top": 9, "style": {"text": "Familias darían", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 420, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e76f51"}}, {"type": "text", "left": 442, "top": 9, "style": {"text": "Profesores darían", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}], "grid": {"left": 10, "right": 20, "top": 50, "bottom": 10, "containLabel": true}, "xAxis": {"type": "category", "data": ["5ºPrim", "6ºPrim", "1ºESO", "2ºESO", "3ºESO", "4ºESO", "1ºBach", "2ºBach", "+18"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 12, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}, "boundaryGap": false}, "yAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#888888"}, "splitLine": {"lineStyle": {"color": "#f0f0f0", "type": "dashed"}}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos — Lo recibieron", "type": "line", "data": [26.2, 42.8, 67.8, 84.2, 92.6, 97.2, 98.4, 99.2, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#aaa", "type": "dashed"}, "itemStyle": {"color": "#aaa"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Todos — Alumnado daría", "type": "line", "data": [6.5, 15.0, 38.0, 58.3, 74.2, 85.8, 92.5, 95.3, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Todos — Familias darían", "type": "line", "data": [1.4, 2.0, 9.2, 17.3, 28.8, 52.2, 76.3, 81.7, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#e8963e"}, "itemStyle": {"color": "#e8963e"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Todos — Profesores darían", "type": "line", "data": [0.0, 0.0, 0.0, 3.0, 16.8, 53.5, 90.1, 92.1, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#e76f51"}, "itemStyle": {"color": "#e76f51"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Andel — Lo recibieron", "type": "line", "data": [27.9, 42.0, 62.8, 80.0, 89.9, 95.2, 97.2, 98.3, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#aaa", "type": "dashed"}, "itemStyle": {"color": "#aaa"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Andel — Alumnado daría", "type": "line", "data": [9.4, 16.0, 38.3, 56.7, 71.6, 84.4, 92.8, 95.1, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Andel — Familias darían", "type": "line", "data": [0.8, 1.7, 6.7, 18.3, 30.8, 54.2, 78.3, 82.5, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#e8963e"}, "itemStyle": {"color": "#e8963e"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Andel — Profesores darían", "type": "line", "data": [0.0, 0.0, 0.0, 2.2, 17.8, 46.7, 84.4, 84.4, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#e76f51"}, "itemStyle": {"color": "#e76f51"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Fuenllana — Lo recibieron", "type": "line", "data": [24.7, 43.5, 72.1, 87.9, 95.1, 99.0, 99.5, 100.0, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#aaa", "type": "dashed"}, "itemStyle": {"color": "#aaa"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Fuenllana — Alumnado daría", "type": "line", "data": [3.9, 14.1, 37.8, 59.8, 76.5, 87.0, 92.3, 95.4, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#2a9d8f"}, "itemStyle": {"color": "#2a9d8f"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Fuenllana — Familias darían", "type": "line", "data": [1.7, 2.3, 10.9, 16.6, 27.4, 50.9, 74.9, 81.1, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#e8963e"}, "itemStyle": {"color": "#e8963e"}, "label": {"show": false}, "smooth": 0.3}, {"name": "Fuenllana — Profesores darían", "type": "line", "data": [0.0, 0.0, 0.0, 3.6, 16.1, 58.9, 94.6, 98.2, 100.0], "symbol": "circle", "symbolSize": 6, "lineStyle": {"width": 3, "color": "#e76f51"}, "itemStyle": {"color": "#e76f51"}, "label": {"show": false}, "smooth": 0.3}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('reducir_tiempo');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "item", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "formatter": function(p) {
+          var seg = p.seriesName.split('_').slice(1).join('_');
+          return '<b>' + p.name + '</b><br/>' + seg + ': <b>' + p.value + '%</b>';
+        }}, "legend": {"show": false, "selected": {"Todos_Me sentiría mejor": true, "Todos_Me daría igual": true, "Todos_Me sentiría peor": true, "Andel_Me sentiría mejor": false, "Andel_Me daría igual": false, "Andel_Me sentiría peor": false, "Fuenllana_Me sentiría mejor": false, "Fuenllana_Me daría igual": false, "Fuenllana_Me sentiría peor": false}}, "graphic": [{"type": "rect", "left": 0, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#2a9d8f"}}, {"type": "text", "left": 22, "top": 9, "style": {"text": "Me sentiría mejor", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 169.5, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#d4d4d4"}}, {"type": "text", "left": 191.5, "top": 9, "style": {"text": "Me daría igual", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 316.5, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e76f51"}}, {"type": "text", "left": 338.5, "top": 9, "style": {"text": "Me sentiría peor", "fontSize": 13, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}], "grid": {"left": 10, "right": 0, "top": 40, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["1°-4° Primaria", "5°-6° Primaria", "1°-2° ESO", "3°-4° ESO", "Bachillerato"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 13, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos_Me sentiría mejor", "type": "bar", "stack": "Todos", "data": [44.4, 50.2, 30.4, 32.5, 53.3], "itemStyle": {"color": "#2a9d8f", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Me daría igual", "type": "bar", "stack": "Todos", "data": [42.9, 36.8, 51.0, 50.8, 36.7], "itemStyle": {"color": "#d4d4d4", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Me sentiría peor", "type": "bar", "stack": "Todos", "data": [12.8, 13.0, 18.6, 16.7, 10.0], "itemStyle": {"color": "#e76f51", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Me sentiría mejor", "type": "bar", "stack": "Andel", "data": [38.6, 40.4, 31.2, 32.6, 49.5], "itemStyle": {"color": "#2a9d8f", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Me daría igual", "type": "bar", "stack": "Andel", "data": [42.1, 38.4, 42.4, 45.7, 36.9], "itemStyle": {"color": "#d4d4d4", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Me sentiría peor", "type": "bar", "stack": "Andel", "data": [19.3, 21.2, 26.4, 21.7, 13.6], "itemStyle": {"color": "#e76f51", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Me sentiría mejor", "type": "bar", "stack": "Fuenllana", "data": [48.7, 60.4, 29.6, 32.4, 57.0], "itemStyle": {"color": "#2a9d8f", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Me daría igual", "type": "bar", "stack": "Fuenllana", "data": [43.4, 35.3, 59.2, 54.7, 36.4], "itemStyle": {"color": "#d4d4d4", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Me sentiría peor", "type": "bar", "stack": "Fuenllana", "data": [7.9, 4.3, 11.2, 12.8, 6.5], "itemStyle": {"color": "#e76f51", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 36, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 12, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
+      allOriginals.push(JSON.parse(JSON.stringify(opt)));
+      chart.setOption(opt);
+      allCharts.push(chart);
+      chart._el = el;
+      window.addEventListener('resize', function() { chart.resize(); });
+      chart._howCompare = 'default';
+    })();
+    (function() {
+      var el = document.getElementById('sin_smartphone');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+      var opt = {"tooltip": {"trigger": "item", "backgroundColor": "rgba(255,255,255,0.96)", "borderColor": "#eee", "borderWidth": 1, "textStyle": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "color": "#333333", "fontSize": 13}, "formatter": function(p) {
+          var seg = p.seriesName.split('_').slice(1).join('_');
+          return '<b>' + seg + '</b>: <b>' + p.value + '%</b>';
+        }}, "legend": {"show": false, "selected": {"Todos_Evitaríamos problemas": true, "Todos_Me ayudaría": true, "Todos_Me daría igual": true, "Todos_Me costaría": true, "Todos_Lo necesitaría": true, "Andel_Evitaríamos problemas": false, "Andel_Me ayudaría": false, "Andel_Me daría igual": false, "Andel_Me costaría": false, "Andel_Lo necesitaría": false, "Fuenllana_Evitaríamos problemas": false, "Fuenllana_Me ayudaría": false, "Fuenllana_Me daría igual": false, "Fuenllana_Me costaría": false, "Fuenllana_Lo necesitaría": false}}, "graphic": [{"type": "rect", "left": 0, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#2a9d8f"}}, {"type": "text", "left": 22, "top": 9, "style": {"text": "Evitaríamos problemas", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 189, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#6ab29b"}}, {"type": "text", "left": 211, "top": 9, "style": {"text": "Me ayudaría", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 308, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#d4d4d4"}}, {"type": "text", "left": 330, "top": 9, "style": {"text": "Me daría igual", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 448, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e8963e"}}, {"type": "text", "left": 470, "top": 9, "style": {"text": "Me costaría", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}, {"type": "rect", "left": 567, "top": 8, "shape": {"width": 16, "height": 16, "r": 3}, "style": {"fill": "#e76f51"}}, {"type": "text", "left": 589, "top": 9, "style": {"text": "Lo necesitaría", "fontSize": 12, "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fill": "#4a4a4a"}}], "grid": {"left": 10, "right": 0, "top": 40, "bottom": 10, "containLabel": true}, "yAxis": {"type": "category", "data": ["Alumnado con móvil"], "axisLabel": {"fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif", "fontSize": 14, "color": "#4a4a4a"}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "xAxis": {"type": "value", "max": 100, "axisLabel": {"show": false}, "splitLine": {"show": false}, "axisLine": {"show": false}, "axisTick": {"show": false}}, "series": [{"name": "Todos_Evitaríamos problemas", "type": "bar", "stack": "Todos", "data": [11.6], "itemStyle": {"color": "#2a9d8f", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Me ayudaría", "type": "bar", "stack": "Todos", "data": [14.9], "itemStyle": {"color": "#6ab29b", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Me daría igual", "type": "bar", "stack": "Todos", "data": [41.0], "itemStyle": {"color": "#d4d4d4", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Me costaría", "type": "bar", "stack": "Todos", "data": [21.4], "itemStyle": {"color": "#e8963e", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Todos_Lo necesitaría", "type": "bar", "stack": "Todos", "data": [11.2], "itemStyle": {"color": "#e76f51", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Evitaríamos problemas", "type": "bar", "stack": "Andel", "data": [10.9], "itemStyle": {"color": "#2a9d8f", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Me ayudaría", "type": "bar", "stack": "Andel", "data": [15.5], "itemStyle": {"color": "#6ab29b", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Me daría igual", "type": "bar", "stack": "Andel", "data": [43.0], "itemStyle": {"color": "#d4d4d4", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Me costaría", "type": "bar", "stack": "Andel", "data": [18.6], "itemStyle": {"color": "#e8963e", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Andel_Lo necesitaría", "type": "bar", "stack": "Andel", "data": [12.0], "itemStyle": {"color": "#e76f51", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Evitaríamos problemas", "type": "bar", "stack": "Fuenllana", "data": [12.2], "itemStyle": {"color": "#2a9d8f", "borderRadius": [4, 0, 0, 4]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Me ayudaría", "type": "bar", "stack": "Fuenllana", "data": [14.4], "itemStyle": {"color": "#6ab29b", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Me daría igual", "type": "bar", "stack": "Fuenllana", "data": [39.2], "itemStyle": {"color": "#d4d4d4", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Me costaría", "type": "bar", "stack": "Fuenllana", "data": [23.8], "itemStyle": {"color": "#e8963e", "borderRadius": [0, 0, 0, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}, {"name": "Fuenllana_Lo necesitaría", "type": "bar", "stack": "Fuenllana", "data": [10.4], "itemStyle": {"color": "#e76f51", "borderRadius": [0, 4, 4, 0]}, "barMaxWidth": 48, "label": {"show": true, "position": "inside", "formatter": function(p) { return p.data >= 8 ? p.data + '%' : ''; }, "fontSize": 13, "fontWeight": "bold", "color": "#fff", "fontFamily": "'DM Sans', 'Inter', system-ui, -apple-system, sans-serif"}}], "animationDuration": 800, "animationEasing": "cubicOut"};
       allOriginals.push(JSON.parse(JSON.stringify(opt)));
       chart.setOption(opt);
       allCharts.push(chart);
