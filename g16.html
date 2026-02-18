@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G1.6 — Análisis detallado</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', 'Inter', system-ui, sans-serif; color: #333; background: #fff; padding: 40px 48px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 32px; }
+  .section { margin-bottom: 36px; }
+  .section h2 { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #333; }
+  .section p { font-size: 14px; line-height: 1.7; color: #555; margin-bottom: 8px; }
+  .chart-box { width: 100%; height: 380px; margin: 16px 0 24px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 20px 0; }
+  th { background: #f7f7f7; padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #e0e0e0; }
+  td { padding: 7px 12px; border-bottom: 1px solid #f0f0f0; }
+  tr:hover td { background: #fafafa; }
+  .n { color: #aaa; font-size: 11px; }
+  .highlight { background: #fff3cd; }
+  .callout { background: #f7f7f7; border-left: 4px solid #2a9d8f; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; line-height: 1.7; }
+  .callout b { color: #2a9d8f; }
+  .andel { color: #060786; font-weight: 600; }
+  .fuenllana { color: #c60027; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>G1.6 — ¿A qué ritmo accede cada generación al móvil?</h1>
+<p class="subtitle">Mini-informe para Cris · Métrica: % del alumnado que ya tenía móvil en 6° de Primaria, por cohorte de nacimiento</p>
+
+<div class="section">
+  <h2>1. La pregunta de Cris</h2>
+  <p>Cris detectó que <b>en chicos (Andel) el porcentaje decrece</b> entre la generación de 2008 y la de 2011, lo cual parece contraintuitivo si esperamos que las generaciones más jóvenes accedan antes al móvil.</p>
+  <p>Hemos revisado los datos curso a curso. Solo se incluyen alumnos de 1ºESO en adelante, porque los que están aún en Primaria no han "terminado" de pasar por 6º y la métrica estaría artificialmente baja.</p>
+</div>
+
+<div class="section">
+  <h2>2. Los datos, cohorte a cohorte</h2>
+
+  <div class="chart-box" id="chart1"></div>
+
+  <table>
+    <thead>
+      <tr><th>Nacimiento</th><th>Curso actual</th><th class="andel">Andel</th><th class="fuenllana">Fuenllana</th><th>Todos</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>~2008</td><td>2º Bachillerato</td><td>28.3% <span class="n">(13/46)</span></td><td class="highlight">13.2% <span class="n">(7/53)</span></td><td>20.2% <span class="n">(20/99)</span></td></tr>
+      <tr><td>~2009</td><td>1º Bachillerato</td><td>24.1% <span class="n">(14/58)</span></td><td>30.9% <span class="n">(17/55)</span></td><td>27.4% <span class="n">(31/113)</span></td></tr>
+      <tr><td>~2010</td><td>4º ESO</td><td class="highlight">15.4% <span class="n">(10/65)</span></td><td>26.2% <span class="n">(22/84)</span></td><td>21.5% <span class="n">(32/149)</span></td></tr>
+      <tr><td>~2011</td><td>3º ESO</td><td>24.0% <span class="n">(18/75)</span></td><td class="highlight">41.1% <span class="n">(39/95)</span></td><td>33.5% <span class="n">(57/170)</span></td></tr>
+      <tr><td>~2012</td><td>2º ESO</td><td>23.6% <span class="n">(17/72)</span></td><td>24.2% <span class="n">(23/95)</span></td><td>24.0% <span class="n">(40/167)</span></td></tr>
+      <tr><td>~2013</td><td>1º ESO</td><td>24.0% <span class="n">(18/75)</span></td><td>26.3% <span class="n">(15/57)</span></td><td>25.0% <span class="n">(33/132)</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>3. ¿Qué vemos?</h2>
+
+  <p><span class="andel">Andel (chicos)</span> — Tendencia plana. Los valores oscilan entre 15% y 28% sin dirección clara. No hay aceleración generacional visible. El mínimo de 4ºESO (15.4%, n=65) y el máximo de 2ºBach (28.3%, n=46) son probablemente ruido estadístico con muestras de ~50-75 alumnos.</p>
+
+  <p><span class="fuenllana">Fuenllana (chicas)</span> — Hay más variabilidad, pero tampoco es una tendencia limpia. El dato llamativo es el <b>pico de 3ºESO (nacidas ~2011): 41.1%</b>, muy por encima del resto. Y en el otro extremo, 2ºBach (nacidas ~2008) tiene solo <b>13.2%</b>. La gráfica original comparaba justo estos dos extremos, lo que exageraba la apariencia de tendencia.</p>
+
+  <div class="callout">
+    <b>Conclusión:</b> Con muestras de 46-95 alumnos por cohorte, la variabilidad es alta. No hay una tendencia limpia curso a curso en ninguno de los dos colegios. Lo que sí se ve al <b>agrupar cohortes</b> (3 cursos cada una) es una ligera aceleración global — sobre todo en chicas.
+  </div>
+</div>
+
+<div class="section">
+  <h2>4. ¿Qué hemos hecho en el informe?</h2>
+  <p>En lugar de comparar dos cursos sueltos (2ºBach vs 3ºESO), que elegía justo los dos extremos, ahora agrupamos:</p>
+  <ul style="font-size:14px; line-height:1.8; margin:8px 0 8px 20px; color:#555;">
+    <li><b>Cohorte mayor</b> (4ºESO + 1ºBach + 2ºBach, nacidos ~2008-2010): Andel 21.9%, Fuenllana 24.0%, Todos 23.0%</li>
+    <li><b>Cohorte joven</b> (1ºESO + 2ºESO + 3ºESO, nacidos ~2011-2013): Andel 23.9%, Fuenllana 31.2%, Todos 27.7%</li>
+  </ul>
+  <p>Con la agrupación, la tendencia es positiva para ambos colegios (más pronunciada en chicas), y el mensaje se apoya en ~350-470 alumnos por grupo en vez de ~50-95.</p>
+</div>
+
+<script>
+var data = [
+  {nac: 2008, andel: 28.3, fuenllana: 13.2, todos: 20.2, nAndel: 46, nFuenllana: 53},
+  {nac: 2009, andel: 24.1, fuenllana: 30.9, todos: 27.4, nAndel: 58, nFuenllana: 55},
+  {nac: 2010, andel: 15.4, fuenllana: 26.2, todos: 21.5, nAndel: 65, nFuenllana: 84},
+  {nac: 2011, andel: 24.0, fuenllana: 41.1, todos: 33.5, nAndel: 75, nFuenllana: 95},
+  {nac: 2012, andel: 23.6, fuenllana: 24.2, todos: 24.0, nAndel: 72, nFuenllana: 95},
+  {nac: 2013, andel: 24.0, fuenllana: 26.3, todos: 25.0, nAndel: 75, nFuenllana: 57},
+];
+
+var chart = echarts.init(document.getElementById('chart1'));
+chart.setOption({
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(255,255,255,0.96)',
+    borderColor: '#eee', borderWidth: 1,
+    textStyle: { fontFamily: 'DM Sans, Inter, system-ui', fontSize: 13, color: '#333' },
+    formatter: function(params) {
+      var d = data[params[0].dataIndex];
+      var tip = '<b>Nacidos ~' + d.nac + '</b>';
+      for (var i = 0; i < params.length; i++) {
+        var p = params[i];
+        var n = p.seriesName === 'Andel' ? d.nAndel : p.seriesName === 'Fuenllana' ? d.nFuenllana : (d.nAndel + d.nFuenllana);
+        tip += '<br/>' + p.marker + ' ' + p.seriesName + ': <b>' + p.value + '%</b> <span style="color:#aaa">(n=' + n + ')</span>';
+      }
+      return tip;
+    }
+  },
+  legend: { top: 0, textStyle: { fontFamily: 'DM Sans, Inter, system-ui', fontSize: 13 } },
+  grid: { left: 10, right: 20, top: 40, bottom: 10, containLabel: true },
+  xAxis: {
+    type: 'category',
+    data: data.map(function(d) { return '~' + d.nac; }),
+    axisLabel: { fontFamily: 'DM Sans, Inter, system-ui', fontSize: 13, color: '#888' },
+    axisLine: { show: false }, axisTick: { show: false },
+    name: '← más jóvenes          más mayores →',
+    nameLocation: 'center', nameGap: 30,
+    nameTextStyle: { fontFamily: 'DM Sans, Inter, system-ui', fontSize: 11, color: '#bbb' },
+  },
+  yAxis: {
+    type: 'value',
+    axisLabel: { formatter: '{value}%', fontFamily: 'DM Sans, Inter, system-ui', fontSize: 13, color: '#ccc' },
+    splitLine: { lineStyle: { color: '#f0f0f0', type: 'dashed' } },
+    axisLine: { show: false }, axisTick: { show: false },
+  },
+  series: [
+    {
+      name: 'Andel', type: 'line', data: data.map(function(d) { return d.andel; }),
+      symbol: 'circle', symbolSize: 8,
+      lineStyle: { width: 3, color: '#060786' }, itemStyle: { color: '#060786', borderWidth: 2, borderColor: '#fff' },
+      label: { show: true, position: 'top', formatter: '{c}%', fontSize: 12, fontWeight: 'bold', color: '#666', fontFamily: 'DM Sans, Inter, system-ui' },
+    },
+    {
+      name: 'Fuenllana', type: 'line', data: data.map(function(d) { return d.fuenllana; }),
+      symbol: 'circle', symbolSize: 8,
+      lineStyle: { width: 3, color: '#c60027' }, itemStyle: { color: '#c60027', borderWidth: 2, borderColor: '#fff' },
+      label: { show: true, position: 'bottom', formatter: '{c}%', fontSize: 12, fontWeight: 'bold', color: '#666', fontFamily: 'DM Sans, Inter, system-ui' },
+    },
+    {
+      name: 'Todos', type: 'line', data: data.map(function(d) { return d.todos; }),
+      symbol: 'circle', symbolSize: 6,
+      lineStyle: { width: 2, color: '#ccc', type: 'dashed' }, itemStyle: { color: '#ccc' },
+      label: { show: false },
+    },
+  ],
+  animationDuration: 800, animationEasing: 'cubicOut',
+});
+window.addEventListener('resize', function() { chart.resize(); });
+</script>
+
+</body>
+</html>
