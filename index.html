@@ -334,6 +334,57 @@
     line-height: 1.3;
   }
 
+  .depth-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+    padding-top: 8px;
+  }
+  .depth-options {
+    display: flex;
+    background: #f7f7f7;
+    border-radius: 16px;
+    padding: 6px;
+    gap: 4px;
+  }
+  .depth-btn {
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    padding: 14px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+  .depth-btn:hover {
+    background: rgba(255,255,255,0.5);
+  }
+  .depth-btn.active {
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .depth-btn-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 2px;
+  }
+  .depth-btn-desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: #888888;
+  }
+  .depth-btn.active .depth-btn-desc {
+    color: #4a4a4a;
+  }
+  body.mode-esencial .chart-section:not([data-main="1"]) {
+    display: none !important;
+  }
+  body.mode-esencial .section-header.no-main-charts {
+    display: none !important;
+  }
+
 
 </style>
 </head>
@@ -381,16 +432,28 @@
 </div>
 
 <div class="page-content">
+  <div class="depth-toggle">
+  <div class="depth-options">
+    <button class="depth-btn" data-depth="esencial" onclick="setDepth('esencial')">
+      <div class="depth-btn-title">Lo esencial</div>
+      <div class="depth-btn-desc">~10 min</div>
+    </button>
+    <button class="depth-btn active" data-depth="completo" onclick="setDepth('completo')">
+      <div class="depth-btn-title">En profundidad</div>
+      <div class="depth-btn-desc">~25 min</div>
+    </button>
+  </div>
+</div>
   
-      <div class="section-header" id="s0" onclick="toggleSection('s0')">
+      <div class="section-header expanded" id="s0" onclick="toggleSection('s0')">
         <div class="section-info">
           <div class="section-number">Sección 0</div>
           <div class="section-name">La muestra: ¿a quién hemos preguntado?</div>
         </div>
         <span class="section-arrow">›</span>
       </div>
-      <div class="section-content" id="content-s0">
-      <section class="chart-section">
+      <div class="section-content expanded" id="content-s0">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G0.1</div>
           <div class="chart-title">¿Quién ha participado en la encuesta?</div>
@@ -452,7 +515,7 @@
 </div>
         </div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G0.2</div>
           <div class="chart-title">¿Cuántas respuestas tenemos por etapa?</div>
@@ -484,7 +547,7 @@
           <div class="insight-block"><div class="insight-number" style="color: #c60027">17%</div><div class="insight-label">más chicas que chicos con móvil en 3º° ESO</div></div>
         </div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G1.2</div>
           <div class="chart-title">¿En qué curso recibieron su primer móvil?</div>
@@ -497,7 +560,7 @@
           <div class="insight-block"><div class="insight-number" style="color: #c60027">6%</div><div class="insight-label">más chicas que chicos recibieron el móvil en 1°-2° ESO</div></div>
         </div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G1.3</div>
           <div class="chart-title">¿Qué tipo de dispositivo tienen?</div>
@@ -556,7 +619,7 @@
         <span class="section-arrow">›</span>
       </div>
       <div class="section-content" id="content-s2">
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G2.1</div>
           <div class="chart-title">¿Cuánto tiempo pasan delante de la pantalla?</div>
@@ -566,7 +629,7 @@
           
         </div><div class='chart-comment'><p>A partir de 3º de ESO, los alumnos están 2 horas entre semana y 4 los fines de semana</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G2.2</div>
           <div class="chart-title">¿Qué apps y plataformas usan más?</div>
@@ -589,7 +652,7 @@
           
         </div><div class='chart-comment'><p>Para buena parte del alumnado, el móvil abre y cierra cada jornada</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G2.4</div>
           <div class="chart-title">¿Qué hacen con el móvil?</div>
@@ -599,7 +662,7 @@
           
         </div><div class='chart-comment'><p>Vídeos, videojuegos y redes sociales forman el tridente digital más habitual</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G2.7</div>
           <div class="chart-title">¿Coinciden familias y alumnado en el tiempo de uso?</div>
@@ -675,7 +738,7 @@
           
         </div><div class='chart-comment'><p>Casi uno de cada diez alumnos presenta dependencia digital alta o muy alta</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G3.2</div>
           <div class="chart-title">¿Pueden parar de usar el móvil?</div>
@@ -705,7 +768,7 @@
           
         </div><div class='chart-comment'><p>Cuanto mayores, más miran el móvil sin que haya sonado</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G3.8</div>
           <div class="chart-title">¿Afectan las pantallas al sueño?</div>
@@ -715,7 +778,7 @@
           
         </div><div class='chart-comment'><p>El uso nocturno de pantallas pasa factura especialmente en la adolescencia tardía</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G3.9</div>
           <div class="chart-title">¿Hay normas digitales en casa?</div>
@@ -777,7 +840,7 @@
           
         </div><div class='chart-comment'><p>Solo una minoría reconoce preocuparse por los likes o comentarios en redes</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G4.7</div>
           <div class="chart-title">¿Coinciden familias y alumnado en cómo se sienten?</div>
@@ -832,7 +895,7 @@
           <div class="insight-block"><div class="insight-number" style="color: #060786">12%</div><div class="insight-label">más chicos piensan que «Están bastante enganchados»</div></div>
         </div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G5.4</div>
           <div class="chart-title">¿En qué notan que el móvil influye en sus amigos?</div>
@@ -877,7 +940,7 @@
         <span class="section-arrow">›</span>
       </div>
       <div class="section-content" id="content-s6">
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G6.1</div>
           <div class="chart-title">¿Coinciden familias y alumnado en los efectos del móvil?</div>
@@ -900,7 +963,7 @@
           <div class="insight-block"><div class="insight-number" style="color: #060786">×7.9</div><div class="insight-label">más chicos en «Pornografía o contenido violento»</div></div><div class="insight-block"><div class="insight-number" style="color: #060786">×2.6</div><div class="insight-label">más chicos en «Contacto con desconocidos»</div></div>
         </div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G6.3</div>
           <div class="chart-title">¿Les preocupa a las familias la exposición digital de sus hijas?</div>
@@ -939,7 +1002,7 @@
           
         </div><div class='chart-comment'><p>En Bachillerato, el 19.5% del alumnado y el 60.8% de las familias desearían haber esperado más</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G7.2</div>
           <div class="chart-title">¿Cuándo dar el primer smartphone?</div>
@@ -959,7 +1022,7 @@
           
         </div><div class='chart-comment'><p>No hay una relación clara entre la edad del alumnado y la edad a la que darían el móvil: todos los grupos se mueven en un rango estrecho</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G7.3</div>
           <div class="chart-title">¿Querrían usar menos el móvil?</div>
@@ -969,7 +1032,7 @@
           
         </div><div class='chart-comment'><p>La mayoría se sentiría mejor con menos pantalla, y la proporción crece con la edad (hasta 53.3% en Bachillerato)</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G7.4</div>
           <div class="chart-title">¿Y si nadie tuviera smartphone?</div>
@@ -1037,7 +1100,7 @@
           
         </div><div class='chart-comment'><p>El 54.8% ha tenido que retirar algún móvil, pero un 11.9% no se siente respaldado por las familias</p></div>
       </section>
-      <section class="chart-section">
+      <section class="chart-section" data-main="1">
         <div class="chart-main">
           <div class='chart-code'>G9.2</div>
           <div class="chart-title">¿Qué observan los profesores en las aulas?</div>
@@ -1834,7 +1897,45 @@ function setFilter(mode) {
 }
 
 
+  
+var _currentDepth = 'completo';
+function setDepth(mode) {
+  _currentDepth = mode;
+  document.querySelectorAll('.depth-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.depth === mode);
+  });
+  document.body.classList.toggle('mode-esencial', mode === 'esencial');
+  document.querySelectorAll('.section-content').forEach(function(content) {
+    var header = content.previousElementSibling;
+    if (!header || !header.classList.contains('section-header')) return;
+    var isS0 = header.id === 's0';
+    if (mode === 'esencial') {
+      var hasMain = content.querySelector('[data-main="1"]');
+      header.classList.toggle('no-main-charts', !hasMain);
+      if (hasMain) {
+        content.classList.add('expanded');
+        header.classList.add('expanded');
+      } else {
+        content.classList.remove('expanded');
+        header.classList.remove('expanded');
+      }
+    } else {
+      header.classList.remove('no-main-charts');
+      if (!isS0) {
+        content.classList.remove('expanded');
+        header.classList.remove('expanded');
+      }
+    }
+  });
+  setTimeout(function() {
+    allCharts.forEach(function(c) { c.resize(); });
+    if (_currentMode) applyFilter(_currentMode);
+  }, 50);
+}
+
+
   setFilter('todos');
+  setDepth('completo');
 </script>
 </body>
 </html>
