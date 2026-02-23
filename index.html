@@ -13,9 +13,7 @@
     font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
     background: #ffffff;
     color: #333333;
-  }
-  @media (min-width: 769px) {
-    body { overflow-x: hidden; }
+    overflow-x: hidden;
   }
 
   .toggle-bar {
@@ -387,6 +385,26 @@
     display: none !important;
   }
 
+  @media (max-width: 1400px) {
+    .chart-comment {
+      position: static;
+      transform: none;
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 20px;
+    }
+    .chart-insight {
+      position: static;
+      transform: none;
+      width: 100%;
+      margin-top: 16px;
+    }
+    .chart-insight.visible {
+      transform: none;
+    }
+  }
+
   @media (max-width: 768px) {
     .toggle-bar {
       padding: 10px 12px;
@@ -435,24 +453,7 @@
     }
 
     .chart-comment {
-      position: static;
-      transform: none;
-      width: 100%;
-      text-align: center;
-      margin-top: 16px;
       font-size: 18px;
-    }
-    .chart-insight {
-      position: static;
-      transform: none;
-      width: 100%;
-      margin-top: 16px;
-    }
-    .chart-insight.visible {
-      transform: none;
-    }
-    .chart-section {
-      overflow: visible;
     }
 
     .depth-btn {
