@@ -211,6 +211,10 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
+    display: none;
+  }
+  body.show-codes .chart-code {
+    display: block;
   }
   .chart-title {
     font-size: 28px;
@@ -523,7 +527,7 @@
   
       <div class="section-header expanded" id="s0" onclick="toggleSection('s0')">
         <div class="section-info">
-          <div class="section-number">Sección 0</div>
+          <div class="section-number"></div>
           <div class="section-name">La muestra: ¿a quién hemos preguntado?</div>
         </div>
         <span class="section-arrow">›</span>
@@ -2034,6 +2038,17 @@ function setDepth(mode) {
   }, 50);
 }
 
+
+  var _fClickCount = 0, _fClickTimer = null;
+  document.querySelector('[data-filter="Fuenllana"]').addEventListener('click', function() {
+    _fClickCount++;
+    clearTimeout(_fClickTimer);
+    _fClickTimer = setTimeout(function() { _fClickCount = 0; }, 800);
+    if (_fClickCount >= 3) {
+      document.body.classList.toggle('show-codes');
+      _fClickCount = 0;
+    }
+  });
 
   setFilter('todos');
   setDepth('completo');
